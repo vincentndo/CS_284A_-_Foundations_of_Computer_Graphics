@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>cs184/284a</title><meta charset="UTF-8"><meta http-equiv="Content-Language" content="en"><link rel="stylesheet" href="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/ionicons.css">
+<link rel="stylesheet" href="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/cs184-web-e4036be4.css">
+<link rel="stylesheet" href="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/katex.css">
+<link rel="stylesheet" href="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/github-markdown.css">
+<link rel="stylesheet" href="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/github.css"><style type="text/css">date-input-polyfill{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;position:absolute!important;text-align:center;box-shadow:0 3px 10px 1px rgba(0,0,0,.22);cursor:default;z-index:1;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;overflow:hidden;display:block}date-input-polyfill[data-open=false]{visibility:hidden;z-index:-100!important;top:0}date-input-polyfill[data-open=true]{visibility:visible}date-input-polyfill select,date-input-polyfill table,date-input-polyfill td,date-input-polyfill th{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;box-shadow:none;font-family:Lato,Helvetica,Arial,sans-serif}date-input-polyfill button,date-input-polyfill select{border:0;border-radius:0;border-bottom:1px solid #dadfe1;height:24px;vertical-align:top;-webkit-appearance:none;-moz-appearance:none}date-input-polyfill .monthSelect-wrapper{width:55%;display:inline-block}date-input-polyfill .yearSelect-wrapper{width:25%;display:inline-block}date-input-polyfill select{width:100%}date-input-polyfill select:first-of-type{border-right:1px solid #dadfe1;border-radius:5px 0 0 0;-moz-border-radius:5px 0 0 0;-webkit-border-radius:5px 0 0 0}date-input-polyfill button{width:20%;background:#dadfe1;border-radius:0 5px 0 0;-moz-border-radius:0 5px 0 0;-webkit-border-radius:0 5px 0 0}date-input-polyfill button:hover{background:#eee}date-input-polyfill table{border-collapse:separate!important;border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;-webkit-border-radius:0 0 5px 5px;overflow:hidden;max-width:280px;width:280px}date-input-polyfill td,date-input-polyfill th{width:32px;padding:4px;text-align:center;box-sizing:content-box}date-input-polyfill td[data-day]{cursor:pointer}date-input-polyfill td[data-day]:hover{background:#dadfe1}date-input-polyfill [data-selected]{font-weight:700;background:#d8eaf6}</style></head><body><script>$MG={"o":{"browserRefresh":false,"activeSemester":{"id":3,"tag":"sp20"},"auth":{"profile":{"id":14899769,"username":"vincentndo","avatar_url":"https://avatars3.githubusercontent.com/u/14899769?v=4"},"user":{"id":3600,"sid":25949105,"email":"ninhdo@berkeley.edu","roster_name":"Do, Ninh","role":"student","semester_id":3,"profile_id":14899769}},"semester":{"id":3,"tag":"sp20"}},"$$":[{"l":["auth","user","created_at"],"r":{"type":"Date","value":1579677917000}},{"l":["auth","user","updated_at"],"r":{"type":"Date","value":1580524748000}}]}</script><div id="app-root"><div class="rel" id="app-page"><header class="rel" id="app-header"><div><nav><a href="https://cs184.eecs.berkeley.edu/sp20" class="">cs184/284a</a><a href="https://cs184.eecs.berkeley.edu/sp20/policies" class="">policies</a><a href="https://cs184.eecs.berkeley.edu/sp20/staff" class="">staff</a><a href="https://cs184.eecs.berkeley.edu/sp20/readings" class="">readings</a><a href="https://cs184.eecs.berkeley.edu/sp20/resources" class="">resources</a></nav><div class="header-tail"><div class="header-auth"><a href="https://cs184.eecs.berkeley.edu/auth/logout?r=/sp20" class="nav-link"><i class="icon ion-ios-log-out"></i></a><a href="https://cs184.eecs.berkeley.edu/sp20/p/vincentndo" class="profile"><span class="avatar"><img src="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/14899769.jpeg"></span><span class="username">vincentndo</span></a></div></div></div></header><div class="full" id="app-page__body"><div class="article"><div class="article-header"><h1>Building and Submitting CS184 Assignments</h1></div><div class="article-body"><div class="comp-md markdown-body"><p>If
+ you face any issues with setup, please don't hesitate to talk to a TA! 
+Please check Piazza first. If you still can't build the homeworks, come 
+to the end of Lost Section for help. We will do our best to help get 
+your machine up and running.</p>
+<p>In CS 184, all of your projects will be done in C++. If you are new to the language, please read a handy <a href="https://cs184.eecs.berkeley.edu/sp19/article/11/c-basics">primer we wrote</a> that gives a quick overview of important C++ specific concepts.</p>
+<p>Aside from C++, we highly recommend that you try using a real IDE, 
+not Sublime Text or Visual Studio Code, in order to work on your 
+projects in this class. Many of the projects require serious debugging, 
+made exponentially easier through the use of an IDE. We highly 
+recommend:</p>
+<ul>
+<li>Visual Studio 2019 (Windows)</li>
+<li><a href="https://www.jetbrains.com/clion/">CLion</a>, free with <a href="https://www.jetbrains.com/student/">Jetbrains Student License</a> (All Platforms)</li>
+<li>Xcode (MacOS)</li>
+</ul>
+<h3>Downloading assignments</h3>
+<p>When an assignment is released, it will appear in your cs184 website 
+profile, under Assignments. Once you accept the assignment through 
+GitHub Classroom, a private repo will be generated for your assignment. 
+You will want to clone and push to <em>this repository</em> (that has your username in the repo name).</p>
+<pre><code>$ git clone ???
+</code></pre>
+<p>(where <code>???</code> is the https link on the GitHub repository 
+page). If you haven't used git before, there are many quick 
+introductions to it on the web, such as <a href="http://rogerdudler.github.io/git-guide/">this one</a>. Using <a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">ssh to access GitHub</a> is also recommended as it saves you from having to type your username and password during each action.</p>
+<h2>A. Setting Up Your Machine (C++ and Dependencies)</h2>
+<h3>Windows setup</h3>
+<ol>
+<li>Install Visual Studio 2019 or newer.
+<ul>
+<li>Select "Desktop Development with C++" when installing Visual Studio</li>
+</ul>
+</li>
+<li>Install Git for Windows</li>
+<li>Install Vcpkg
+<ul>
+<li>Open a PowerShell / CMD / Git Bash in the folder where you wish to install vcpkg, (e.g. <code>C:/</code>)</li>
+<li>Vcpkg is a package management software that downloads and builds the required software dependencies.</li>
+<li><code>git clone https://github.com/microsoft/vcpkg</code></li>
+<li>Go into the <code>vcpkg</code> folder</li>
+<li><code>.\bootstrap-vcpkg.bat</code></li>
+<li>After vcpkg is installed, install the dependency of this project
+<ul>
+<li>On 64-bit system (most systems today) <code>.\vcpkg.exe install freetype:x64-windows</code></li>
+<li>On 32-bit system (may not work well) <code>.\vcpkg.exe install freetype</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3>MacOS setup</h3>
+<ol>
+<li>
+<p>Open up your terminal and run <code>xcode-select --install</code>. 
+Accept the XCode license if prompted. If in the later steps, you are 
+unable to build, then try installing XCode through the Mac App Store.</p>
+</li>
+<li>
+<p>You should now be able to run <code>g++ --version</code> without any errors.</p>
+</li>
+<li>
+<p>We will be using <a href="http://www.cmake.org/">CMake</a> to build the assignments. If you don't have CMake on your Mac, you can easily install it by first installing <a href="https://brew.sh/">HomeBrew (a third-party package manager for MacOS)</a>, and then running <code>brew install cmake</code>. Alternatively, you can <a href="https://cmake.org/download/">download CMake</a> directly from the CMake website.</p>
+</li>
+<li>
+<p>You will also need to install freetype libraries. A convenient way is by getting <a href="https://brew.sh/">HomeBrew</a>, and then running <code>brew install freetype</code>.</p>
+</li>
+</ol>
+<p>Common errors:</p>
+<ul>
+<li>"CXX compiler identification is unknown": Try running <code>sudo xcode-select --reset; sudo xcodebuild -license accept</code></li>
+</ul>
+<h3>Linux setup (Ubuntu/Debian/apt)</h3>
+<p>Install the C++ build tools using the commands below. This assumes 
+that you are on Ubuntu/Debian. Here is an explanation of each packaging 
+necessary:</p>
+<ul>
+<li><code>build-essential</code>: A bundle that contains most packages needed for compiling C/C++ projects</li>
+<li><code>cmake</code>: The tool used to build assignments</li>
+<li><code>xorg-dev</code>: A bundle containing many dependencies related to X Window System</li>
+<li><code>libfreetype6-dev</code>: A dependency used by CS184 projects</li>
+<li><code>mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev</code>: OpenGL development libraries</li>
+</ul>
+<pre><code class="language-sh">sudo apt update
+sudo apt install build-essential cmake xorg-dev libfreetype6-dev
+sudo apt install mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev 
+</code></pre>
+<h3>Setup on other operating systems</h3>
+<p>Course staff will try our best in assisting you, but we can only 
+confidently provide support on platforms listed here since there are too
+ many platforms available to provide detailed instructions on all of 
+them.</p>
+<p>If you use a platform not listed here, you may have to use Google 
+figure it out yourself. Try building the projects and installing 
+whatever missing development libraries are needed. There are several 
+main components you will need in order to build CS184 projects:</p>
+<ol>
+<li>C++/G++ build toolchain</li>
+<li>CMake</li>
+<li>Xorg build headers</li>
+<li>Freetype development libraries</li>
+</ol>
+<p>If all else fails, you can use the <a href="http://inst.eecs.berkeley.edu/connecting.html">EECS instructional computers</a> as those are known to work with CS184 projects.</p>
+<h3>Using the instructional machines (Soda 330 &amp; Soda 349)</h3>
+<p>The <a href="http://inst.eecs.berkeley.edu/connecting.html">EECS department provides instructional computers</a> to students enrolled in a CS class. To get an account, <a href="http://inst.eecs.berkeley.edu/connecting.html">create a WebAcct on the EECS instructional account webpage</a>.</p>
+<p>The easiest way to use the instructional machines is to make the trek
+ to Soda and physically use the desktop computers in Soda 330 or Soda 
+349.</p>
+<h4>SSH remote access of Soda machines</h4>
+<p>All these steps should run with no issues on the fourteen Soda 349 
+instructional machines. You can access these machines by ssh-ing in, 
+e.g.</p>
+<pre><code>ssh cs184-???@s349-##.cs.berkeley.edu
+</code></pre>
+<p>where <code>cs184-???</code> is your WebAcct name and <code>s349-##</code> is the <code>##-th</code>
+ computer in Soda 349. Unfortunately, OpenGL won't play nice with ssh, 
+so in general, you will only be able to compile your code over ssh, not 
+run it. You will have to physically travel to Soda 349 to verify that 
+your code runs correctly.</p>
+<p>We have also installed our dependencies on the hive (Soda 330) machines. You can also access these machines by ssh-ing:</p>
+<p><code>ssh cs184-???@hive##.cs.berkeley.edu</code>
+As before, <code>##</code> represents the <code>##-th</code> computer in
+ the lab (notice there is no dash). You can check the availability and 
+usage of the hive machines using hivemind. These machines are also 
+available in person, though be mindful of any labs or classes that may 
+be using the lab.</p>
+<p>If you develop on your personal computer and then would like to copy the code over to test it, you can use the <code>scp</code> command from the base project directory (on your own computer) as follows:</p>
+<pre><code>scp -r . cs184-???@s349-?.cs.berkeley.edu:~/destination_folder
+</code></pre>
+<p>After inputting your WebAcct password, all your files should be copied over as when using the normal <code>cp</code>
+ command. Note that when you move code between computers, you will 
+probably have to recompile, since the binaries are rarely 
+cross-compatible.</p>
+<p>If you modify code while working on the instructional machines, you can reverse the <code>scp</code> process to transfer the files back to your own computer by running this command</p>
+<pre><code>scp -r cs184-???@s349-?.cs.berkeley.edu:~/hw1_folder ~/destination_folder
+</code></pre>
+<p>from your personal computer.</p>
+<h2>B. Compiling and running</h2>
+<h3>Build on Windows</h3>
+<ol>
+<li>Accept the assignment via your profile page in the course website</li>
+<li>Open Visual Studio, use "Clone or Check out Code"
+<ul>
+<li>Use the GitHub repository link</li>
+</ul>
+</li>
+<li>After the project is opened and the files are listed, right click on <code>CMakeLists.txt</code>, and then click "CMake Settings for Assignment1"
+<ul>
+<li>On the left, press the add button and add a configuration with 
+"x64-Release" (or "x86-Release" on a 32-bit machine). You will still be 
+able to debug the project, but the optimizations of release code will be
+ applied.</li>
+<li>Then, find field "CMake toolchain file", enter <code>[location of vcpkg]/scripts/buildsystems/vcpkg.cmake</code>. (e.g. <code>C:/vcpkg/scripts/buildsystems/vcpkg.cmake</code>)</li>
+</ul>
+</li>
+<li>"Build" -&gt; "Build All"</li>
+<li>Then you can run your project</li>
+</ol>
+<h3>Build using XCode (MacOS)</h3>
+<p>Prof. Ren Ng uses Xcode himself, and made a <a href="https://www.youtube.com/watch?v=9EADCyN_Fek">helpful video tutorial similar to the instructions written here</a>. The video also contains additional details on how to debug using Xcode.</p>
+<ol>
+<li>Make sure that the latest Xcode.app is installed through the Mac app store</li>
+<li>Accept the assignment via your profile page in the course website</li>
+<li>Clone your assignment repository from GitHub (<a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">ssh is recommended</a>)</li>
+<li>Open your Terminal and use <code>cd</code> to change directory into the project folder</li>
+<li>Create a folder called <code>xcode</code>, and CD into it: <code>mkdir xcode; cd build</code></li>
+<li>Setup cmake for XCode (while inside the <code>xcode</code> folder): <code>cmake -G Xcode ..</code></li>
+<li>Open <code>Finder</code> and navigate to the <code>xcode</code> folder</li>
+<li>Double-click on the <code>&lt;Project Name&gt;.xcodeproj</code> file to open the project in XCode (it has a blue icon with a pen and paintbrush)</li>
+<li>Build the project by clicking <code>Project &gt; Build</code> on the top bar of your screen</li>
+<li>Click on <code>ALL_BUILD</code>, located near the top right of Xcode (<a href="https://www.youtube.com/watch?v=9EADCyN_Fek">see Ren's video for more details</a>)</li>
+<li>Click <code>Edit Scheme</code></li>
+<li>Select <code>Run</code> on the sidebar</li>
+<li>Select <code>Info</code> on the top bar of the <code>Run</code> page</li>
+<li>Set <code>Executable</code> to the executable (in the case of HW0, it is <code>quad_test</code>)</li>
+<li>Select <code>Arguments</code> (inside <code>Edit Scheme &gt; Run</code>) to specify arguments (not necessary for HW0) (<a href="https://www.youtube.com/watch?v=9EADCyN_Fek">see Ren's video for help finding it</a>)</li>
+<li>Select <code>Options</code> (inside <code>Edit Scheme &gt; Run</code>) and specify the working directory to be the <code>xcode</code> folder.</li>
+<li>Press the play button to compile and launch the program</li>
+</ol>
+<h3>Build using CLion (Windows/MacOS/Linux)</h3>
+<p>The advantage of using CLion over command line is the advanced debugging features.</p>
+<p>Successfully building in CLion requires following a specific set of 
+instructions. Please make sure to read these instructions especially 
+carefully. If you are on Windows, you will still need to follow the 
+setup instructions and install Visual Studio since C++ is bundled with 
+Visual Studio.</p>
+<ol>
+<li>Accept the assignment via your profile page in the course website</li>
+<li>Clone your assignment repository from GitHub (<a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">ssh is recommended</a>)</li>
+<li>Open CLion (available for free with a <a href="https://www.jetbrains.com/student/">Jetbrains Student License</a>)</li>
+<li>Be at the <code>Welcome to CLion</code> window. It is the window opened by default. To get here, close all CLion windows and reopen CLion.</li>
+<li>On the right side of the window, click <code>Open</code></li>
+<li>Navigate to your project folder in the file explorer that just popped up</li>
+<li>Select <code>CMakeLists.txt</code> and press open (it only works if you select this special file)</li>
+<li>Click <code>Open as Project</code></li>
+<li>Find the build project buttons and build</li>
+<li>To specify program arguments, find the run menu, and use <code>Edit Configurations</code> (not necessary for HW0, but important for later homeworks)</li>
+<li>Run the project either through the CLion GUI or through the command line (the binary will be inside the <code>cmake-build-debug</code> folder)</li>
+</ol>
+<h3>Build using command line (MacOS/Linux)</h3>
+<ol>
+<li>Accept the assignment via your profile page in the course website</li>
+<li>Clone your assignment repository from GitHub (<a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">ssh is recommended</a>)</li>
+<li>Open your Terminal and use <code>cd</code> to change directory into the project folder</li>
+<li>Create a folder called <code>build</code>, and CD into it: <code>mkdir build; cd build</code></li>
+<li>Setup cmake (while inside the <code>build</code> folder): <code>cmake ..</code></li>
+<li>Build the project (while inside the <code>build</code> folder): <code>make</code></li>
+<li>Run the project (while inside the <code>build</code> folder): <code>./quad_test</code> (or whatever the binary name is)</li>
+</ol>
+<h2>C. HW0 result: textured tiles</h2>
+<p>If all goes well, you should see a window pop up with a rectangle with a tile texture.</p>
+<h3>Common issue: I only see a yellow rectangle in HW0</h3>
+<p>If you only see a yellow rectangle, it means that the HW0 ran properly, but it couldn't find the <code>wall.jpg</code> texture. If you look inside the source code, you will find a line that says <code>stbi_load("../wall.jpg"</code>.
+ This means that the binary is trying to look for the texture file in a 
+parent directory. To solve this issue, run the executable with the 
+working directory inside the build folder. Refer to the specific build 
+section for instructions on how to use this.</p>
+<div class="hidden">
+<p>On your GitHub page, please also enable GitHub Pages for your final 
+report. On your repository page, click the settings tab and scroll down 
+to the GitHub Pages section. Select <code>master branch /docs</code> 
+folder as the source. You should see a message saying "Your site is 
+ready to be published at ..." once done. Thus, you'll be placing your 
+project writeups as webpages in this <code>/docs</code> folder.</p>
+<h3>Code submission</h3>
+<p>First commit any work you have and push to the master branch on your remote -- if you're building your GitHub pages off the <code>/docs</code> folder on <code>master</code> (which most of you likely are), and to submit to Gradescope easily.</p>
+<p>Both the directory of your code and a PDF version of your writeup 
+must be submitted to Gradescope before the deadline. You should have 
+been added to Gradescope if you are enrolled in the class.</p>
+<p>For the code portion, the easiest way is probably to download 
+directly from a GitHub branch to Gradescope, but this is up to you. 
+Regardless, you should upload the entire directory/repository, such that
+ we could build and run your code by simply downloading the folder.</p>
+<p>Remember that you have 5 slip days to use as you choose throughout 
+the semester, and you can submit late after those 5 days are used for 
+10% off, per extra day. Using one slip day or late day extends your time
+ by a full 24 hours, no partial/fractional slip days can be used.</p>
+<h4>Writeup</h4>
+<p>Your writeup must be hosted on GitHub Pages, so that we can find it. 
+If you absolutely want to host it somewhere else, please make this <strong>very obvious</strong>
+ in the body of the PDF, as we will be grading off of your webpage. The 
+PDF submission to Gradescope is simply to help us assign point values to
+ your writeup, and to validate your submission. <strong>It is expected that the PDF version matches the live version of your website</strong>;
+ i.e. do not edit your webpage after submitting. (Editing grammar or 
+typos is fine, but please do not add entire sentences or images).</p>
+<p>Remember that grading starts with your writeup, so make it clear and easy to read!</p>
+<p>Your project code and website write-up will be submitted through 
+github this semester. After accepting an assignment through the 
+assignment link, a private repository will be created for you through 
+github classroom. After you are satisfied with your work, ensure first 
+you have pushed all your code to github. Then create a tag with the name
+ submission on the commit you wish to use as your submission.</p>
+<p>First commit any work you have and push to the master branch on your remote (the docs writeup will be built from this branch):</p>
+<p>git push origin master
+Next, tag your submission commit. If you wish to use your last commit as your submission, run:</p>
+<p>git tag submission
+You can also use a prior commit with checksum CHECKSUM by running:</p>
+<p>git tag submission <checksum>
+After you have tagged your desired commit, push the tag to your repository:</checksum></p>
+<p>git push origin submission
+You can view your tagged submission on github to ensure it is what you meant to submit.</p>
+<p>If you make a mistake and wish to change your submission:</p>
+<p>Delete the old tag: git push origin :refs/tags/submission
+Tag the new desired submission commit: git tag -f submission
+Push the tag to the remote: git push origin submission
+Again, on your github page, ensure you have enabled GitHub Pages for 
+your final report. On your repository page, click the settings tab and 
+scroll down to the GitHub Pages section. Select master branch /docs 
+folder as the source. You should see a message saying "Your site is 
+ready to be published at ..." once done.</p>
+<p>To check if your submission is what you desire:</p>
+<p>Check the submission tag by using the branch selector on your repo page. This is the commit we will pull.
+Check to see if your report looks the way you desire on the page generated by ghPages.</p>
+</div>
+</div></div></div></div><footer id="app-footer"></footer></div></div><script src="Setup%20Building%20and%20Submitting%20CS184%20Assignments_files/cs184-web-40b5d670.js"></script>
+<script>$_mod_cal184.ready();</script><date-input-polyfill data-open="false"><span class="yearSelect-wrapper"><select class="yearSelect"><option value="1890" selected="selected">1890</option><option value="1891">1891</option><option value="1892">1892</option><option value="1893">1893</option><option value="1894">1894</option><option value="1895">1895</option><option value="1896">1896</option><option value="1897">1897</option><option value="1898">1898</option><option value="1899">1899</option><option value="1900">1900</option><option value="1901">1901</option><option value="1902">1902</option><option value="1903">1903</option><option value="1904">1904</option><option value="1905">1905</option><option value="1906">1906</option><option value="1907">1907</option><option value="1908">1908</option><option value="1909">1909</option><option value="1910">1910</option><option value="1911">1911</option><option value="1912">1912</option><option value="1913">1913</option><option value="1914">1914</option><option value="1915">1915</option><option value="1916">1916</option><option value="1917">1917</option><option value="1918">1918</option><option value="1919">1919</option><option value="1920">1920</option><option value="1921">1921</option><option value="1922">1922</option><option value="1923">1923</option><option value="1924">1924</option><option value="1925">1925</option><option value="1926">1926</option><option value="1927">1927</option><option value="1928">1928</option><option value="1929">1929</option><option value="1930">1930</option><option value="1931">1931</option><option value="1932">1932</option><option value="1933">1933</option><option value="1934">1934</option><option value="1935">1935</option><option value="1936">1936</option><option value="1937">1937</option><option value="1938">1938</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option><option value="1946">1946</option><option value="1947">1947</option><option value="1948">1948</option><option value="1949">1949</option><option value="1950">1950</option><option value="1951">1951</option><option value="1952">1952</option><option value="1953">1953</option><option value="1954">1954</option><option value="1955">1955</option><option value="1956">1956</option><option value="1957">1957</option><option value="1958">1958</option><option value="1959">1959</option><option value="1960">1960</option><option value="1961">1961</option><option value="1962">1962</option><option value="1963">1963</option><option value="1964">1964</option><option value="1965">1965</option><option value="1966">1966</option><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option><option value="2036">2036</option><option value="2037">2037</option><option value="2038">2038</option><option value="2039">2039</option><option value="2040">2040</option></select></span><span class="monthSelect-wrapper"><select class="monthSelect"></select></span><button>Today</button><table><thead></thead><tbody></tbody></table></date-input-polyfill><script>(function(){var w=window;w.$components=(w.$components||[]).concat({"r":"M","w":[["s0-0-0-3-9",0,{"to":"/resources","l":"resources"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/resources"}}],["s0-0-0-3-8",0,{"to":"/readings","l":"readings"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/readings"}}],["s0-0-0-3-7",0,{"to":"/staff","l":"staff"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/staff"}}],["s0-0-0-3-6",0,{"to":"/policies","l":"policies"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/policies"}}],["s0-0-0-3-5",0,{"to":"/","l":"cs184/284a"},{"f":1,"s":{"active":false},"w":{"target":"/sp20"}}]],"t":["/cal-184-website$3.1.1/client/components/comp-nav-link/index.marko"]})||w.$components})()</script></body></html>
