@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>cs184/284a</title><meta charset="UTF-8"><meta http-equiv="Content-Language" content="en"><link rel="stylesheet" href="C++%20Intro_files/ionicons.css">
+<link rel="stylesheet" href="C++%20Intro_files/cs184-web-e4036be4.css">
+<link rel="stylesheet" href="C++%20Intro_files/katex.css">
+<link rel="stylesheet" href="C++%20Intro_files/github-markdown.css">
+<link rel="stylesheet" href="C++%20Intro_files/github.css"><style type="text/css">date-input-polyfill{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;position:absolute!important;text-align:center;box-shadow:0 3px 10px 1px rgba(0,0,0,.22);cursor:default;z-index:1;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;overflow:hidden;display:block}date-input-polyfill[data-open=false]{visibility:hidden;z-index:-100!important;top:0}date-input-polyfill[data-open=true]{visibility:visible}date-input-polyfill select,date-input-polyfill table,date-input-polyfill td,date-input-polyfill th{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;box-shadow:none;font-family:Lato,Helvetica,Arial,sans-serif}date-input-polyfill button,date-input-polyfill select{border:0;border-radius:0;border-bottom:1px solid #dadfe1;height:24px;vertical-align:top;-webkit-appearance:none;-moz-appearance:none}date-input-polyfill .monthSelect-wrapper{width:55%;display:inline-block}date-input-polyfill .yearSelect-wrapper{width:25%;display:inline-block}date-input-polyfill select{width:100%}date-input-polyfill select:first-of-type{border-right:1px solid #dadfe1;border-radius:5px 0 0 0;-moz-border-radius:5px 0 0 0;-webkit-border-radius:5px 0 0 0}date-input-polyfill button{width:20%;background:#dadfe1;border-radius:0 5px 0 0;-moz-border-radius:0 5px 0 0;-webkit-border-radius:0 5px 0 0}date-input-polyfill button:hover{background:#eee}date-input-polyfill table{border-collapse:separate!important;border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;-webkit-border-radius:0 0 5px 5px;overflow:hidden;max-width:280px;width:280px}date-input-polyfill td,date-input-polyfill th{width:32px;padding:4px;text-align:center;box-sizing:content-box}date-input-polyfill td[data-day]{cursor:pointer}date-input-polyfill td[data-day]:hover{background:#dadfe1}date-input-polyfill [data-selected]{font-weight:700;background:#d8eaf6}</style></head><body><script>$MG={"o":{"browserRefresh":false,"activeSemester":{"id":3,"tag":"sp20"},"auth":{"profile":{"id":14899769,"username":"vincentndo","avatar_url":"https://avatars3.githubusercontent.com/u/14899769?v=4"},"user":{"id":3600,"sid":25949105,"email":"ninhdo@berkeley.edu","roster_name":"Do, Ninh","role":"student","semester_id":3,"profile_id":14899769}},"semester":{"id":3,"tag":"sp20"}},"$$":[{"l":["auth","user","created_at"],"r":{"type":"Date","value":1579677917000}},{"l":["auth","user","updated_at"],"r":{"type":"Date","value":1580524748000}}]}</script><div id="app-root"><div class="rel" id="app-page"><header class="rel" id="app-header"><div><nav><a href="https://cs184.eecs.berkeley.edu/sp20" class="">cs184/284a</a><a href="https://cs184.eecs.berkeley.edu/sp20/policies" class="">policies</a><a href="https://cs184.eecs.berkeley.edu/sp20/staff" class="">staff</a><a href="https://cs184.eecs.berkeley.edu/sp20/readings" class="">readings</a><a href="https://cs184.eecs.berkeley.edu/sp20/resources" class="">resources</a></nav><div class="header-tail"><div class="header-auth"><a href="https://cs184.eecs.berkeley.edu/auth/logout?r=/sp20" class="nav-link"><i class="icon ion-ios-log-out"></i></a><a href="https://cs184.eecs.berkeley.edu/sp20/p/vincentndo" class="profile"><span class="avatar"><img src="C++%20Intro_files/14899769.jpeg"></span><span class="username">vincentndo</span></a></div></div></div></header><div class="full" id="app-page__body"><div class="article"><div class="article-header"><h1>C++ Intro</h1></div><div class="article-body"><div class="comp-md markdown-body"><p>All
+ the projects for this class will primarily be in C++ (language version 
+11). While C++ is derived from C, which most of you have some experience
+ with, it adds support for object oriented code like Java as well as 
+many other features. These include thing you may be familiar with such 
+as inheritance, child classes, and overriding parent functions. This 
+guide will focus on the features most relevant to the class.</p>
+<p>For questions not answered by this guide, you can ask a TA, post on Piazza, or visit this <a href="https://github.com/Bryce-Summers/Writings/blob/master/Programming%20Guides/C_plus_plus_guide.pdf">link</a> containing a more detailed look at C++ basics.</p>
+<h2>Header Files</h2>
+<p>Though C and C++ may look similar, to use the full potential of C++ 
+you may want to include C++ library headers. Though there isn't an 
+exhaustive table of one-to-one mapping of a C header file to its C++ 
+version, below are a few common examples:</p>
+<pre><code class="language-C">    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt; // C++    #include &lt;stdio.h&gt; // C</span></span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt; // C++      #include &lt;string.h&gt; // C</span></span>
+</code></pre>
+<p>Beware that though these names may look similar, they could differ by
+ a lot – C++ strings offer a good number of utility methods, compared to
+ the C string (char *).</p>
+<h2>Passing Arguments</h2>
+<p>Like C, we can pass function parameters by <strong>value</strong> or by <strong>pointer</strong>. However, C++ also allows pass by <strong>reference</strong>, letting you directly modify the original variable without dereferencing a pointer.</p>
+<p>For example we could write a basic squaring function in two ways:</p>
+<pre><code class="language-C">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">square_pointer</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *a)</span>
+    </span>{
+        *a = (*a) * (*a);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">square_reference</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a)</span>
+    </span>{
+        a = a * a;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">int</span> x = <span class="hljs-number">2</span>;
+        square_pointer(&amp;x);  <span class="hljs-comment">// After this line, x = 4</span>
+        square_reference(x); <span class="hljs-comment">// After this line, x = 16</span>
+    }
+</code></pre>
+<h2>Namespaces</h2>
+<p>To avoid problems with repeat names, C++ includes a feature called <strong>namespaces</strong>. They allow us to provide additional scope for variables &amp; functions.</p>
+<pre><code class="language-C">    <span class="hljs-keyword">namespace</span> mynamespace
+    {
+        <span class="hljs-keyword">int</span> x = <span class="hljs-number">5</span>;                     <span class="hljs-comment">// variable inside namespace</span>
+    }
+
+    <span class="hljs-keyword">int</span> x = <span class="hljs-number">34</span>;                        <span class="hljs-comment">// global variable</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">int</span> x = <span class="hljs-number">213</span>;                  <span class="hljs-comment">// local variable</span>
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; x &lt;&lt; ‘\n’;       <span class="hljs-comment">// prints “213”</span>
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; mynamespace::x &lt;&lt; ‘\n”;    <span class="hljs-comment">// prints “5”</span>
+    }
+</code></pre>
+<p>Sometimes, you might see the usage of <code>using namespace name;</code>
+ in a file - this indicates that variables &amp; functions defined in 
+that namespace can be used without specifying the namespace. For 
+example, if we preface the above code with <code>using namespace std;</code> we’d no longer need to preface the cout‘s with <code>std::,</code> which would look like this:</p>
+<pre><code class="language-C">    <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">int</span> x = <span class="hljs-number">213</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; x &lt;&lt; ‘\n’; <span class="hljs-comment">// No std:: needed anymore in front of the cout</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt; mySpace::x &lt;&lt; ‘\n”;
+    }
+</code></pre>
+<p>However, be wary of the potential dangers of <code>using</code> 
+statements, as multiple “used” namespaces might share variable/function 
+names, possibly leading to, for example, the unintended usage of the 
+wrong function of the same name.</p>
+<h2>Classes</h2>
+<p>We declare C++ class with the following syntax.</p>
+<pre><code class="language-C">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vector3D</span>
+    {</span>
+     <span class="hljs-keyword">public</span>:     <span class="hljs-comment">// Note the colon (:)</span>
+        <span class="hljs-keyword">float</span> x; <span class="hljs-comment">// Semi-colon after the var name</span>
+        <span class="hljs-keyword">float</span> y;
+        <span class="hljs-keyword">float</span> z;
+        <span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">getMagnitudeSquared</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">// Semi-colon after the method</span>
+    };                               <span class="hljs-comment">// Semi-colon after the braces (})</span>
+</code></pre>
+<p>There are three visibility levels in C++: <strong>public</strong>, <strong>protected</strong> (visible to inherited class) and <strong>private</strong>
+ (visible to class itself). The class members are declared private by 
+default. The "public:" syntax tells that the following entries will be 
+declared public, without having to put "public" in front of every entry 
+like <code>public float x</code>.</p>
+<p>Similar to how we have header and implementation files for C programs, often times we <strong>declare</strong> the classes &amp; member functions (aka. methods) in header files (often in ".h" extension) and <strong>define</strong>/implement
+ the member functions  in implementation files (often in ".cpp" 
+extension). For the completeness of this topic, there are also cases 
+where you may define the member functions <strong>inline</strong>.</p>
+<p>You may ask: If I declare a function as <code>int getSomething();</code> in a header file, I can define/implement it with <code>int getSomething() { … }</code> in an implementation file.
+What's the equivalent for C++ class member functions?
+With the example of <code>float getMagnitudeSquared();</code> above for the class <code>Vector3D</code>, we can implement it with the following:</p>
+<pre><code class="language-C">    Vector3D::getMagnitudeSquared()    <span class="hljs-comment">// Note the double-colon (::)</span>
+    {
+        <span class="hljs-keyword">return</span> x * x + y * y + z * z;    <span class="hljs-comment">// May use "this-&gt;x"</span>
+    }
+</code></pre>
+<h2>Structs</h2>
+<p>C++ structs (different from C) are essentially classes yet with all visibilities public by default.</p>
+<h2>Memory Allocation</h2>
+<h3>Dynamic Allocation</h3>
+<p>In C, malloc and free are commonly used to allocate persistent memory
+ for various data structures. While both of these functions retain their
+ previous functionality, C++ also the keywords <strong>new</strong> and <strong>delete</strong>
+ which also allow you to allocate objects on the heap. These functions 
+allow for dynamic allocation, without explicitly specifying the number 
+of bytes to be allocated, and also call the constructor and destructor 
+respectively.</p>
+<p>Here's an example for allocating some memory for the <code>Vector3D</code> (declared above):</p>
+<pre><code class="language-C">    Vector3D *vec = <span class="hljs-keyword">new</span> Vector3D;        <span class="hljs-comment">// To allocate memory for a vector &amp;</span>
+    <span class="hljs-comment">// init with implicitly-defined</span>
+    <span class="hljs-comment">// default constructor</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; vec-&gt;x &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;    <span class="hljs-comment">// Use the arrow (-&gt;) operator</span>
+    <span class="hljs-keyword">delete</span> vec;                           <span class="hljs-comment">// Deallocate the memory</span>
+</code></pre>
+<h3>Stack Allocation</h3>
+<p>A great feature (similar to what we have in C) is that we can 
+allocate the objects on stack. So rather than allocating memory for new 
+objects every time and having to count on yourself to remember to 
+deallocate the space taken by that object, we may do the following:</p>
+<pre><code class="language-C">    Vector3D vec = Vector3D();        <span class="hljs-comment">// We construct Vector3D</span>
+    <span class="hljs-comment">// directly into vec</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; vec.x &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+    <span class="hljs-comment">// No need to delete!</span>
+</code></pre>
+<p><em>Precaution</em>: You wouldn't want to return the reference to a 
+stack-allocated object in a function; by the time the function caller 
+gets the pointer value, the referenced object may have already been 
+deallocated – more potential seg faults.</p>
+<h4>For those who are curious…</h4>
+<p>In C++ 11, smart pointers are introduced into the language standard 
+so there's less chance of you stepping on zombie/bad objects. This could
+ be something you may be interested in knowing, but we would only be 
+dealing with plain pointers in this course.</p>
+<h2>I/O</h2>
+<p>In C, often we use stdin and stdout:</p>
+<pre><code class="language-C">    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">char</span> c = fgetc(<span class="hljs-built_in">stdin</span>);            <span class="hljs-comment">// Get some input</span>
+        <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stdout</span>, <span class="hljs-string">"Input: %c\n"</span>, c);    <span class="hljs-comment">// And print it out</span>
+        <span class="hljs-comment">// Equivalent: printf("Input: %c\n", c);</span>
+    }
+</code></pre>
+<p>In C++, equivalent to stdin and stdout we have std::cin and std::cout:</p>
+<pre><code class="language-C">    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">char</span> c;
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cin</span> &gt;&gt; c;
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Input: "</span> &lt;&lt; c &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+    }
+</code></pre>
+<p>It's probably good to mention that you can use <code>std::endl</code> for <code>\n</code>.</p>
+<p>To input/output to the standard input/output we can use the 
+extraction (&gt;&gt;) and insertion (&lt;&lt;) operators. Think of them 
+as taking something out from the input stream and inserting something 
+into the output stream respectively.</p>
+<h3>File I/O</h3>
+<p>Free free to look up how file I/O are improved in C++! You may find 
+them in some starter code but it won't be a major focus in the 
+assignments.</p>
+<h2>Standard Template Library</h2>
+<p>For the completeness of this topic area, C++ comes with STL that can be broken down into the following 3 general components:</p>
+<ul>
+<li>Containers</li>
+<li>Algorithms</li>
+<li>Iterators</li>
+</ul>
+<h3>Vectors</h3>
+<p>As a container type, <code>std::vector</code> can be found throughout the codebase. Think of it as an off-the-shelf resizable array, similar to an <code>ArrayList</code> you probably implemented in Java.</p>
+<p>Below is an example of basic interaction with a vector object:</p>
+<pre><code class="language-C">    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-comment">// We initialize a vector with an initializer list</span>
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums = {<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>};
+
+        <span class="hljs-comment">// Access by index</span>
+
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"nums[2] is "</span> &lt;&lt; nums[<span class="hljs-number">2</span>] &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-comment">// Index-based iteration</span>
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.size(); i++)
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; nums[i] &lt;&lt; <span class="hljs-string">" "</span>;
+        }
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-comment">// Iteration-based iteration</span>
+        <span class="hljs-comment">// std::vector&lt;int&gt;::begin() returns an iterator type we can use to</span>
+        <span class="hljs-comment">// access the items and std::vector&lt;int&gt;::end() tells the end</span>
+        <span class="hljs-comment">// Since std::vector&lt;int&gt;::iterator is a wrapped "pointer", we'll</span>
+        <span class="hljs-comment">// need to dereference it to get the item</span>
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator it = nums.begin();
+             it != nums.end(); it++)
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">" "</span>;
+        }
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-comment">// You may also use "auto" for the compiler to infer the type :)</span>
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> it = nums.begin(); it != nums.end(); it++)
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">" "</span>;
+        }
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-comment">// Range for loop</span>
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums)
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="hljs-string">" "</span>;
+        }
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+    }
+</code></pre>
+<p>Recall object stack allocation, when we define the variable <code>nums</code>,
+ it's essentially living for the duration on the call frame – you 
+wouldn't want to return a pointer to a stack-allocated vector from a 
+function, because by the time you receive the pointer in the caller 
+function, the vector could already be released.</p>
+<p>For the range based for-loops example above, please note that each vector item <code>nums[i]</code> (suppose <code>i</code> is the index) is copied to <code>num</code>. This may look fine with primitive variables but C++ objects undermine issues specific to C++. Consider the following example:</p>
+<pre><code class="language-C">    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+    <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Image</span>
+    {</span>
+     <span class="hljs-keyword">public</span>:
+        Image()
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Image constructed"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+        }
+        Image(Image <span class="hljs-keyword">const</span> &amp;other)
+        {
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Image constructed (from existing image)"</span>
+                      &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+        }
+    };
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt; images = <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt;(<span class="hljs-number">5</span>);
+        <span class="hljs-comment">// Should see 5 images constructed</span>
+
+        <span class="hljs-keyword">for</span> (Image image : images)
+        {
+            <span class="hljs-comment">// Noop</span>
+        }
+        <span class="hljs-comment">// Ouch. And we see 5 images constructed from existing ones</span>
+    }
+</code></pre>
+<p>You probably have guessed it. What's bad about the range for loop 
+above is that each image is copied per loop, and we do not want this if 
+perhaps each image takes 10MB in memory (and we're making room for each 
+copy of the image and mem-copying the image data).</p>
+<p>This leads to a solution using references. A not-so-beautiful way to 
+get around image copying can be to dynamically allocate these images on 
+heap and put these memory addresses into the vector by ourselves. Also 
+we'll need to go into the vector and manually free the memory taken by 
+each image.</p>
+<p>A "good" solution is that we use a reference to each image while 
+looping over the vector. With the same "Image" class as defined above:</p>
+<pre><code class="language-C">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt; images = <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt;(<span class="hljs-number">5</span>);
+        <span class="hljs-comment">// Should see 5 images constructed</span>
+
+        <span class="hljs-keyword">for</span> (Image &amp;image : images)
+        {
+            <span class="hljs-comment">// Noop</span>
+        }
+        <span class="hljs-comment">// Nice! No image is copied :D</span>
+    }
+</code></pre>
+<p>The ampersand (&amp;) makes all the difference. To put this even 
+beyond using references, we can use const references if the image won't 
+be modified during the for loop:</p>
+<pre><code class="language-C">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt; images = <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Image&gt;(<span class="hljs-number">5</span>);
+        <span class="hljs-comment">// Should see 5 images constructed</span>
+
+        <span class="hljs-keyword">for</span> (Image <span class="hljs-keyword">const</span> &amp;image : images)
+        {
+            <span class="hljs-comment">// Noop</span>
+        }
+        <span class="hljs-comment">// Nice! No image is copied :D</span>
+    }
+</code></pre>
+<p>For a more conceptual view on how we will use vectors in this class to represent images, please see the <a href="https://cs184.eecs.berkeley.edu/sp19/article/7/images-as-data">“Images as Data” guide</a>.</p>
+</div></div></div></div><footer id="app-footer"></footer></div></div><script src="C++%20Intro_files/cs184-web-40b5d670.js"></script>
+<script>$_mod_cal184.ready();</script><date-input-polyfill data-open="false"><span class="yearSelect-wrapper"><select class="yearSelect"><option value="1890" selected="selected">1890</option><option value="1891">1891</option><option value="1892">1892</option><option value="1893">1893</option><option value="1894">1894</option><option value="1895">1895</option><option value="1896">1896</option><option value="1897">1897</option><option value="1898">1898</option><option value="1899">1899</option><option value="1900">1900</option><option value="1901">1901</option><option value="1902">1902</option><option value="1903">1903</option><option value="1904">1904</option><option value="1905">1905</option><option value="1906">1906</option><option value="1907">1907</option><option value="1908">1908</option><option value="1909">1909</option><option value="1910">1910</option><option value="1911">1911</option><option value="1912">1912</option><option value="1913">1913</option><option value="1914">1914</option><option value="1915">1915</option><option value="1916">1916</option><option value="1917">1917</option><option value="1918">1918</option><option value="1919">1919</option><option value="1920">1920</option><option value="1921">1921</option><option value="1922">1922</option><option value="1923">1923</option><option value="1924">1924</option><option value="1925">1925</option><option value="1926">1926</option><option value="1927">1927</option><option value="1928">1928</option><option value="1929">1929</option><option value="1930">1930</option><option value="1931">1931</option><option value="1932">1932</option><option value="1933">1933</option><option value="1934">1934</option><option value="1935">1935</option><option value="1936">1936</option><option value="1937">1937</option><option value="1938">1938</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option><option value="1946">1946</option><option value="1947">1947</option><option value="1948">1948</option><option value="1949">1949</option><option value="1950">1950</option><option value="1951">1951</option><option value="1952">1952</option><option value="1953">1953</option><option value="1954">1954</option><option value="1955">1955</option><option value="1956">1956</option><option value="1957">1957</option><option value="1958">1958</option><option value="1959">1959</option><option value="1960">1960</option><option value="1961">1961</option><option value="1962">1962</option><option value="1963">1963</option><option value="1964">1964</option><option value="1965">1965</option><option value="1966">1966</option><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option><option value="2036">2036</option><option value="2037">2037</option><option value="2038">2038</option><option value="2039">2039</option><option value="2040">2040</option></select></span><span class="monthSelect-wrapper"><select class="monthSelect"></select></span><button>Today</button><table><thead></thead><tbody></tbody></table></date-input-polyfill><script>(function(){var w=window;w.$components=(w.$components||[]).concat({"r":"M","w":[["s0-0-0-3-9",0,{"to":"/resources","l":"resources"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/resources"}}],["s0-0-0-3-8",0,{"to":"/readings","l":"readings"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/readings"}}],["s0-0-0-3-7",0,{"to":"/staff","l":"staff"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/staff"}}],["s0-0-0-3-6",0,{"to":"/policies","l":"policies"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/policies"}}],["s0-0-0-3-5",0,{"to":"/","l":"cs184/284a"},{"f":1,"s":{"active":false},"w":{"target":"/sp20"}}]],"t":["/cal-184-website$3.1.1/client/components/comp-nav-link/index.marko"]})||w.$components})()</script></body></html>
