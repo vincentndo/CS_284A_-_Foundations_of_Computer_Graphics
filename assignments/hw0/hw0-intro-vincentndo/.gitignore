@@ -1,7 +1,0 @@
-.DS_Store
-build/
-.vscode/
-*~
-.vs
-out/
-*.json

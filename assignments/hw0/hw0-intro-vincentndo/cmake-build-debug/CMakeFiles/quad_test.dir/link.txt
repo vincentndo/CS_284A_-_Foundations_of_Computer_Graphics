@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -m64 -O3 -fopenmp -g  -rdynamic CMakeFiles/quad_test.dir/quad_test.cpp.o  -o quad_test CGL/src/libCGL.a CGL/deps/glew/libglew.a CGL/deps/glfw/src/libglfw3.a -lGL -lGLU -lfreetype -lpthread -lrt -lm -ldl -lX11 

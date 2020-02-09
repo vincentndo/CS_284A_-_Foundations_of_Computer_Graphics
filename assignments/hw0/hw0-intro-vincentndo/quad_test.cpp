@@ -18,7 +18,7 @@ unsigned int texture;
  * Write your own matrix vector multiplication function. Do not use the built-in CGL function!
  */
 Vector3D mult(Matrix3x3 mat, Vector3D input) {
-    return input; /* TODO */
+    return input[0] * mat[0] + input[1] * mat[1] + input[2] * mat[2] ;
 }
 
 class QuadDrawer : public Renderer {
@@ -46,14 +46,15 @@ class QuadDrawer : public Renderer {
     
     /*TODO: Change GL_NEAREST, and compare the effects of the following filters.
       The following are the following potential filter options:
+      GL_NEAREST
       GL_LINEAR
       GL_NEAREST_MIPMAP_NEAREST
       GL_LINEAR_MIPMAP_NEAREST
       GL_NEAREST_MIPMAP_LINEAR
       GL_LINEAR_MIPMAP_LINEAR
      */
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     // load and generate the texture
     int width, height, nrChannels;
     //TODO: (optional) Change the picture here!
@@ -77,6 +78,7 @@ class QuadDrawer : public Renderer {
   
   void render() {
     glBindTexture(GL_TEXTURE_2D, texture); // Comment this out to disable textures
+//    glBegin(GL_TRIANGLES);
     glBegin(GL_QUADS);
 
     glColor3f( 1.0, 1.0, 0.0); // Can play with RGB values here :)
@@ -89,13 +91,13 @@ class QuadDrawer : public Renderer {
     glTexCoord2f(0,0);
     glVertex3f(a_trans[0], a_trans[1], a_trans[2]);
     /* TODO: change the (0,1) below to (0,.1) to zoom into the texture to see changes. */
-    glTexCoord2f(0,1);
+    glTexCoord2f(0,0.1);
     glVertex3f(b_trans[0], b_trans[1], b_trans[2]);
     /* TODO: change the (1,1) below to (.1,.1) to zoom into the texture to see changes. */
-    glTexCoord2f(1,1);
+    glTexCoord2f(.1,.1);
     glVertex3f(c_trans[0], c_trans[1], c_trans[2]);
     /* TODO: change the (1,0) to (.1,0) to zoom into the texture to see changes. */
-    glTexCoord2f(1,0);
+    glTexCoord2f(.1,0);
     glVertex3f(d_trans[0], d_trans[1], d_trans[2]);
     glDeleteTextures(1, &texture);
     glDisable(GL_TEXTURE_2D);
