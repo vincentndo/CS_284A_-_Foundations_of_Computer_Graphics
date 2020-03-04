@@ -22,8 +22,7 @@ The project has 6 tasks, worth a total of 100 possible points. Some require only
 ## Logistics
 
 ### Deadline
-* **Project 1** is due **Tuesday 2/18, 11:59PM**. The [**checkpoint quiz**](https://forms.gle/DQKEiZzFvFxKYMU69) is due **Tuesday 2/11, 11:59PM.** For the project, both your code and write-up need to be turned in for your submission to be complete. Assignments which are turned in after 11:59pm will use one of your late days -- there are no late minutes or late hours.
-
+**Project 1** is due **Tuesday 2/18, 11:59PM**. The [**checkpoint quiz**](https://forms.gle/DQKEiZzFvFxKYMU69) is due **Tuesday 2/11, 11:59PM.** For the project, both your code and write-up need to be turned in for your submission to be complete. Assignments which are turned in after 11:59PM will use one of your late days -- there are no late minutes or late hours. Please consult this article on [how to submit the assignment for CS184](https://cs184.eecs.berkeley.edu/sp20/article/15/submitting-cs184-assignments).
 
 ### Getting started
 
@@ -33,7 +32,7 @@ First, accept the assignment in your CS184 website profile, following the instru
     
 Also ensure GitHub Pages is enabled for your assignment.
 
-Please consult this [how to build and submit assignments for CS 184](https://cs184.eecs.berkeley.edu/sp20/article/11/building-and-submitting-cs184-as) article for more information on how to setup and build the project.
+Please consult this [how to build assignments for CS184](https://cs184.eecs.berkeley.edu/sp20/article/11/building-cs184-assignments) article for more information on how to setup and build the assignment.
 
 As you go through the assignment, [refer to the write-up guidelines and deliverables section below](#rubric). **It is recommended that you complete each section's write-up as you finish that section.** It's generally not a good idea to wait until the end to start your writeup. You may also find it helpful to skim the rubric before beginning your work.
 
@@ -174,7 +173,7 @@ Suggestions for this task:
 * You will need to manage appropriate memory to store your supersample data.  We recommend that you use the `RasterizerImp::supersample_buffer` vector (see file `rasterizer.h`) for this purpose.  It depends on your algorithm, but it is likely that the size of the supersample buffer you need will depend on the framebuffer dimensions (which changes when the window is resized) and the supersampling rate (which changes with keystrokes as described above).  You will need to update the size of the buffer dynamically. There are hints below and in the code for where you may want to manage the size of your buffer.
 * Clear the values in your supersample buffer memory and/or framebuffer appropriately at the beginning of redrawing the frame. This is erasing the frame before you start drawing. 
 * Update your `rasterize_triangle` function to perform supersampling into your supersample buffer memory. There are multiple ways to organize the data in your supersample buffer, and the choice is up to you. One reasonable way to think about supersampling is simply rasterizing an image that is higher resolution, then downsampling the higher resolution image to the output resolution of the framebuffer.  In this way of thinking, your supersample buffer is just a temporary, higher-resolution framebuffer.  For example, 4x4 supersampling with a 1000x1000 pixel framebuffer means rasterizing a 4000x4000 (high-res) image of the scene into your supersample buffer.  After you rasterize the high-res image, you need to downsample to 1000x1000 final pixels by averaging down the 4x4 grid of sample values that are related to each output pixel.  In this way of thinking, you need to store more memory in order to perform the high-res supersampled rasterization.  (Test your understanding: can you achieve the same results without needing more memory, and if so, what are the engineering tradeoffs?)
-* At the end of rasterizing all the scene elements, you will need to populate the framebuffer from your supersamples.  This is sometimes called resolving the samples into the framebuffer.  Notice that the the `RasterizerImp::resolve_into_framebuffer` function is called as the last step in rendering the frame, so you may wish to implement this part of your algorithm here.   
+* At the end of rasterizing all the scene elements, you will need to populate the framebuffer from your supersamples.  This is sometimes called resolving the samples into the framebuffer.  Notice that the the ~~`RasterizerImp::resolve_into_framebuffer`~~  **`RasterizerImp::resolve_to_framebuffer`** function is called as the last step in rendering the frame **in `drawrend.cpp`**, so you may wish to implement this part of your algorithm here.   
 * Note that you will need to convert between different color datatypes. `RasterizerImp::rgb_framebuffer_target` stores a pointer to the framebuffer pixel data that is finally drawn to the display. `rgb_framebuffer_target` is an array of 8-bit values for each of the R, G and B components of each pixel's color -- this is the compact data format expected by most real graphics systems for drawing to the display.  In contrast, the `RasterizerImp::supersample_buffer` variable that we suggest you use for your supersample memory is an array of `Color` objects that store R, G and B internally as floating point values.  You may wish to familiarize yourself with the `Color` class.  You may need to convert between these datatypes.  Watch out for floating point to integer conversion errors, such as rounding and overflow. 
 * You will likely find that points and lines stop rendering correctly after your supersampling modifications. The starter code point and line rasterization use `RasterizerImp::supersample_buffer` -- update this function if needed to restore functionality.  You do NOT need to antialias points and lines.
 
@@ -235,9 +234,9 @@ Once Part 5 is done, you should be able to rasterize the *svg* files in *svg/tex
 
 Notes:
 
-* The `Texture` struct in `texture.h` stores a mipmap, as described in lecture, of texture images in decreasing resolution, in the `mipmap` variable. Each texture image is stored as an object of type `MipMap`.
-* `MipMap::texels` stores the texture image pixels in the typical RGB format described above for framebuffer pixels.
-* `MipMap::get_texel(...)` may be helpful.
+* The `Texture` struct in `texture.h` stores a mipmap, as described in lecture, of texture images in decreasing resolution, in the `mipmap` variable. Each texture image is stored as an object of type `MipLevel`.
+* `MipLevel::texels` stores the texture image pixels in the typical RGB format described above for framebuffer pixels.
+* `MipLevel::get_texel(...)` may be helpful.
 
 For convenience, here is a list of functions you will need to modify:
 
@@ -249,24 +248,24 @@ For convenience, here is a list of functions you will need to modify:
 ### Task 6: "Level sampling" with mipmaps for texture mapping (25 pts)
 [**Relevant lecture: 5**](https://cs184.eecs.berkeley.edu/sp19/lecture/5/texture)
 
-Finally, update `RasterizerImp::rasterize_textured_triangle(...)` to support sampling different `MipMap` levels. The GUI toggles `RasterizerImp`'s `LevelSampleMethod` variable `lsm` using the `'L'` key.
+Finally, update `RasterizerImp::rasterize_textured_triangle(...)` to support sampling different mipmap levels (`MipLevel`s). The GUI toggles `RasterizerImp`'s `LevelSampleMethod` variable `lsm` using the <kbd>L</kbd> key. **Please implement the following level sampling methods in the helper function `Texture::sample`.**
 
-* When `lsm == L_ZERO`, you should sample from the zero-th `MipMap`, as in Part 5.
-* When `lsm == L_NEAREST`, you should compute the nearest appropriate `MipMap` level using the one-pixel difference vectors `du` and `dv` and pass that level as a parameter to the nearest or bilinear sample function.
-* When `lsm == L_LINEAR`, you should compute the `MipMap` level as a continuous number. Then compute a weighted sum of using one sample from each of the adjacent `MipMap` levels as described in lecture.  Please implement this in 
+* When `lsm == L_ZERO`, you should sample from the zero-th `MipLevel`, as in Part 5.
+* When `lsm == L_NEAREST`, you should compute the nearest appropriate mipmap level ~~using the one-pixel difference vectors `du` and `dv`~~ and pass that level as a parameter to the nearest or bilinear sample function.
+* When `lsm == L_LINEAR`, you should compute the mipmap level as a continuous number. Then compute a weighted sum of using one sample from each of the adjacent mipmap levels as described in lecture. 
 
-Implement `Texture::get_level` as a helper function. You will need $(\frac{du}{dx}, \frac{dv}{dx})$ and $(\frac{du}{dy},\frac{dv}{dy})$ to calculate the correct `MipMap` level. In order to get these values corresponding to a point $p = (x,y)$ inside a triangle, you must:
+In addition, implement `Texture::get_level` as a helper function. You will need <img src="https://render.githubusercontent.com/render/math?math=(\frac{du}{dx}, \frac{dv}{dx})"> and <img src="https://render.githubusercontent.com/render/math?math=(\frac{du}{dy},\frac{dv}{dy})"> to calculate the correct mipmap level. In order to get these values corresponding to a point <img src="https://render.githubusercontent.com/render/math?math=(x,y)"> inside a triangle, you must perform the following.
 
-1. calculate the barycentric coordinates of $(x+1,y)$ and $(x,y+1)$ in `rasterize_textured_triangle`, passing these to `tri->color` as the variables `p_dx_bary` and `p_dy_bary`,
-2. calculate the *uv* coordinates `sp.p_dx_uv` and `sp.p_dy_uv` inside `tri_color`,
-3. calculate the difference vectors `sp.p_dx_uv - sp.p_uv` and `sp.p_dy_uv - sp.p_uv` inside `Texture::get_level`, and finally
-4. scale up those difference vectors respectively by the width and height of the full-resolution texture image.
+1. Calculate the barycentric coordinates of <img src="https://render.githubusercontent.com/render/math?math=(x,y)">, <img src="https://render.githubusercontent.com/render/math?math=$(x%2B1,y)$">, and <img src="https://render.githubusercontent.com/render/math?math=$(x,y%2B1)$"> in `rasterize_textured_triangle(...)`, ~~passing these to `tri->color` as the variables `p_dx_bary` and `p_dy_bary`,~~
+2. Calculate the *uv* coordinates of **the three points above, asign them to a `SampleParams` struct `sp`, along with other values required by the struct, and pass `sp` to `Texture::get_level`,** ~~`sp.p_dx_uv` and `sp.p_dy_uv` inside `tri_color`,~~
+3. Calculate the difference vectors `sp.p_dx_uv - sp.p_uv` and `sp.p_dy_uv - sp.p_uv` inside `Texture::get_level`, and finally
+4. Scale up the difference vectors **accordingly** ~~respectively~~ by the width and height of the full-resolution texture image.
 
 With these, you can proceed with the calculation from the lecture slides.
 
 Notes:
 
-* The `lsm` and `psm` variables can be set independently and interact independently. In other words, all combinations of `psm==[P_NEAREST, P_LINEAR] x lsm==[L_ZERO, L_NEAREST, L_LINEAR]` are valid.
+* The `lsm` and `psm` variables can be set independently and interacted independently. In other words, all combinations of `psm==[P_NEAREST, P_LINEAR] x lsm==[L_ZERO, L_NEAREST, L_LINEAR]` are valid.
 * When `lsm == L_LINEAR` and `psm == P_LINEAR`, this is known as trilinear sampling, or trilinear texture filtering, as described in lecture. 
 
 For convenience, here is a list of functions you will need to modify:
@@ -294,7 +293,7 @@ Students will vote on their favorite submissions and the top voted submission(s)
 
 ## Submission
 
-Please consult this article on [how to build and submit assignments for CS 184](https://cs184.eecs.berkeley.edu/sp20/article/11/building-and-submitting-cs184-as).
+Please consult this article on [how to submit the assignment for CS184](https://cs184.eecs.berkeley.edu/sp20/article/15/submitting-cs184-assignments).
 
 You will submit your code as well as some deliverables (see below) in a webpage project write-up.
 
@@ -364,6 +363,3 @@ Give a high-level overview of what you implemented in this project. Think about 
 * Pay close attention to your filename extensions. Remember that on UNIX systems (such as the instructional machines), capitalization matters. `.png != .jpeg != .jpg != .JPG`
 * Be sure to adjust the permissions on your files so that they are world readable. For more information on this please see this [tutorial](http://www.grymoire.com/Unix/Permissions.html").
 * Start assembling your webpage early to make sure you have a handle on how to edit the HTML code to insert images and format sections.
-
-
-
