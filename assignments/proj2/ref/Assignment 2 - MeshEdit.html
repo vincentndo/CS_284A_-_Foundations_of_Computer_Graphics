@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>cs184/284a</title><meta charset="UTF-8"><meta http-equiv="Content-Language" content="en"><link rel="stylesheet" href="Assignment%202%20-%20MeshEdit_files/ionicons.css">
+<link rel="stylesheet" href="Assignment%202%20-%20MeshEdit_files/cs184-web-5d805804.css">
+<link rel="stylesheet" href="Assignment%202%20-%20MeshEdit_files/katex.css">
+<link rel="stylesheet" href="Assignment%202%20-%20MeshEdit_files/github-markdown.css">
+<link rel="stylesheet" href="Assignment%202%20-%20MeshEdit_files/github.css"><style type="text/css">date-input-polyfill{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;position:absolute!important;text-align:center;box-shadow:0 3px 10px 1px rgba(0,0,0,.22);cursor:default;z-index:1;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;overflow:hidden;display:block}date-input-polyfill[data-open=false]{visibility:hidden;z-index:-100!important;top:0}date-input-polyfill[data-open=true]{visibility:visible}date-input-polyfill select,date-input-polyfill table,date-input-polyfill td,date-input-polyfill th{background:#fff;color:#000;text-shadow:none;border:0;padding:0;height:auto;width:auto;line-height:normal;font-family:sans-serif;font-size:14px;box-shadow:none;font-family:Lato,Helvetica,Arial,sans-serif}date-input-polyfill button,date-input-polyfill select{border:0;border-radius:0;border-bottom:1px solid #dadfe1;height:24px;vertical-align:top;-webkit-appearance:none;-moz-appearance:none}date-input-polyfill .monthSelect-wrapper{width:55%;display:inline-block}date-input-polyfill .yearSelect-wrapper{width:25%;display:inline-block}date-input-polyfill select{width:100%}date-input-polyfill select:first-of-type{border-right:1px solid #dadfe1;border-radius:5px 0 0 0;-moz-border-radius:5px 0 0 0;-webkit-border-radius:5px 0 0 0}date-input-polyfill button{width:20%;background:#dadfe1;border-radius:0 5px 0 0;-moz-border-radius:0 5px 0 0;-webkit-border-radius:0 5px 0 0}date-input-polyfill button:hover{background:#eee}date-input-polyfill table{border-collapse:separate!important;border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;-webkit-border-radius:0 0 5px 5px;overflow:hidden;max-width:280px;width:280px}date-input-polyfill td,date-input-polyfill th{width:32px;padding:4px;text-align:center;box-sizing:content-box}date-input-polyfill td[data-day]{cursor:pointer}date-input-polyfill td[data-day]:hover{background:#dadfe1}date-input-polyfill [data-selected]{font-weight:700;background:#d8eaf6}</style></head><body><script>$MG={"o":{"browserRefresh":false,"activeSemester":{"id":3,"tag":"sp20"},"auth":{"profile":{"id":14899769,"username":"vincentndo","avatar_url":"https://avatars3.githubusercontent.com/u/14899769?v=4"},"user":{"id":3600,"sid":25949105,"email":"ninhdo@berkeley.edu","roster_name":"Do, Ninh","role":"student","semester_id":3,"profile_id":14899769}},"semester":{"id":3,"tag":"sp20"}},"$$":[{"l":["auth","user","created_at"],"r":{"type":"Date","value":1579677917000}},{"l":["auth","user","updated_at"],"r":{"type":"Date","value":1580524748000}}]}</script><div id="app-root"><div class="rel" id="app-page"><header class="rel" id="app-header"><div><nav><a href="https://cs184.eecs.berkeley.edu/sp20" class="">cs184/284a</a><a href="https://cs184.eecs.berkeley.edu/sp20/policies" class="">policies</a><a href="https://cs184.eecs.berkeley.edu/sp20/staff" class="">staff</a><a href="https://cs184.eecs.berkeley.edu/sp20/readings" class="">readings</a><a href="https://cs184.eecs.berkeley.edu/sp20/resources" class="">resources</a></nav><div class="header-tail"><div class="header-auth"><a href="https://cs184.eecs.berkeley.edu/auth/logout?r=/sp20" class="nav-link"><i class="icon ion-ios-log-out"></i></a><a href="https://cs184.eecs.berkeley.edu/sp20/p/vincentndo" class="profile"><span class="avatar"><img src="Assignment%202%20-%20MeshEdit_files/14899769.jpeg"></span><span class="username">vincentndo</span></a></div></div></div></header><div class="full" id="app-page__body"><div class="article"><div class="article-header"><h1>Assignment 2: MeshEdit</h1></div><div class="article-body"><div class="comp-md markdown-body"><p><img src="Assignment%202%20-%20MeshEdit_files/9_2.jpg" alt=""></p>
+<p>In this assignment, you will explore topics on geometric modeling 
+covered in lecture. You will build Bezier curves and surfaces using de 
+Casteljau algorithm, manipulate triangle meshes represented by half-edge
+ data structure, and implement loop subdivision. For possible extra 
+credit, you can optionally enter a mesh competition and design your own 
+polygon mesh using 3D modeling programs, such as <a href="http://blender.org/">Blender</a>.</p>
+<h2>Deadlines</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><span style="font-weight:normal"><a href="https://www.gradescope.com/courses/83189">Checkpoint Quiz</a></span></th>
+<th style="text-align:center"><strong>Tuesday 02/25, 11:59PM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><span style="font-weight:normal">Assignment 2</span></td>
+<td style="text-align:center"><strong>Tuesday 03/03, 11:59PM</strong></td>
+</tr>
+</tbody>
+</table>
+<p>You have a total of 5 slip days to use on assignments throughout the 
+entire semester, but you do not have slip days for checkpoint quizzes. 
+Assignments submitted after 11:59PM are considered as a full day late. 
+There is no late minutes or late hours. After you have used all 5 slips 
+days, you will lose 10% for each day you submit an assignment late.</p>
+<p>Your final assignment submission must include <strong>both</strong> your final code and final write-up. Please consult this article on <a href="https://cs184.eecs.berkeley.edu/sp20/article/15/submitting-cs184-assignments">how to submit assignment for CS184</a>.</p>
+<h2>Assignment Structure</h2>
+<p>This assignment has 7 parts, divided into 3 sections, and is worth a 
+total of 90 possible points. Some parts require only a few lines of 
+code, while others are more substantial.</p>
+<p><strong><a href="#s1">Section I: Bezier Curves and Surfaces</a></strong></p>
+<ul>
+<li><a href="#p1">Part 1: Bezier curves with 1D de Casteljau subdivision (10 pts)</a></li>
+<li><a href="#p2">Part 2: Bezier surfaces with separable 1D de Casteljau (15 pts)</a></li>
+</ul>
+<p><strong><a href="#s2">Section II: Triangle Meshes and Half-Edge Data Structure</a></strong></p>
+<ul>
+<li><a href="#p3">Part 3: Area-weighted vertex normals (10 pts)</a></li>
+<li><a href="#p4">Part 4: Edge flip (15 pts)</a></li>
+<li><a href="#p5">Part 5: Edge split (15 pts)</a></li>
+<li><a href="#p6">Part 6: Loop subdivision for mesh upsampling (25 pts)</a></li>
+</ul>
+<p><strong><a href="#s3">Section III: Mesh Competition (optional, possible extra credit)</a></strong></p>
+<ul>
+<li><a href="#p7">Part 7: Design and edit your own mesh!</a></li>
+</ul>
+<p>This assignment requires you to use vectors to compute various 
+values, e.g., normals to triangles on a mesh. Instead of implementing 
+vector functions yourself, check out this primer to quickly get started 
+on <a href="https://cs184.eecs.berkeley.edu/sp20/article/12/primer-on-using-vectors-and-matr">using vectors and matrices provided by the CGL library</a>.</p>
+<h2>Getting Started</h2>
+<p>As in Assignment 1, you should accept this assignment on your CS184 
+website profile, follow the instructions on GitHub Classroom, and clone 
+the generated repo (<strong>not</strong> the class skeleton). Make sure you enable GitHub Pages for your assignment.</p>
+<pre><code>$ git clone &lt;YOUR_PRIVATE_REPO&gt;
+</code></pre>
+<p>Please consult this article on <a href="https://cs184.eecs.berkeley.edu/sp20/article/11/building-and-submitting-cs184-as">how to build assignments for CS184</a>.</p>
+<p><strong>We recommend that you accumulate deliverables into your write-up as you work through each part this assignment.</strong> We have included write-up instructions at the end of each part of this assignment, as well as <a href="#rubric">a compilation of all write-up instructions</a> at the end.</p>
+<h2>Running the Executable</h2>
+<p>The general command for running the executable <code>meshedit</code> is the following:</p>
+<pre><code>./meshedit &lt;PATH_TO_FILE&gt;
+</code></pre>
+<p><strong>Important Note:</strong> You <strong>must</strong> provide an input file to <code>meshedit</code>, or else the executable will crash.</p>
+<p>Note that <code>meshedit</code> expects different file formats for different parts of this assignment, as detailed in the table below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Part / Section</th>
+<th style="text-align:center">Expected File Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="#p1">Section I Part 1</a></td>
+<td style="text-align:center">Bezier Curves (<code>.bzc</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="#p2">Section I Part 2</a></td>
+<td style="text-align:center">Bezier Surfaces (<code>.bez</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="#s2">All Parts in Section II and III</a></td>
+<td style="text-align:center">COLLADA Mesh Files (<code>.dae</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>As an example, for Section I Part 1, you must load a Bezier curve as the following:</p>
+<pre><code>./meshedit ../bzc/curve1.bzc
+</code></pre>
+<h2>Using the Graphical User Interface (GUI)</h2>
+<p>The following details how you can use the GUI provided by the executable <code>meshedit</code>.
+ You may want to skim through them on your first read-through; and read 
+them in more detail when you have implemented parts of this assignment 
+and are ready to use the GUI.</p>
+<h3><a id="c1"></a> Section I Part 1</h3>
+<p>When you run <code>meshedit</code> with a Bezier curve (<code>.bzc</code>) for Section I Part I, you will see control points that define the curve rendered on screen, as shown below.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/wGCO3TI.png" alt=""></p>
+<p>For this part <strong>only</strong>, the GUI is different. Below is the full specification on keyboard controls.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><kbd>E</kbd></td>
+<td>Perform one call to <code>BezierCurve::evaluateStep(...)</code> and cycle through levels</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>C</kbd></td>
+<td>Toggle whether or not the fully evaluated Bezier curve is drawn to the screen</td>
+</tr>
+</tbody>
+</table>
+<p>To verify your implementation is correct, you can repeatedly press <kbd>E</kbd> to cycle through each level of the de Casteljau subdivision. You can press <kbd>C</kbd> to toggle the Bezier curve to check if it is generated correctly based on the control points.</p>
+<p>You can also use your mouse to:</p>
+<ul>
+<li><strong>Click and drag</strong> the control points to move them and see how your Bezier curve, along with all intermediate control points, changes accordingly.</li>
+<li><strong>Scroll</strong> to move the evaluated point along the Bezier
+ curve and see how the intermediate control points move along with it. 
+This is essentially varying <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> between 0.0 and 1.0.</li>
+</ul>
+<h3><a id="c2"></a> Section I Part 2 and Onwards</h3>
+<p>When you run <code>meshedit</code> from Section I Part 2 and onwards, you will see a triangle mesh rendered on screen, as shown below.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/147nmya.png" alt=""></p>
+<p>As you hover the cursor around the screen, you will notice that mesh 
+elements (half-edges, vertices, edges,, and faces) under the cursor are 
+highlighted in purple or white, such as an edge in the image above. You 
+can click on one of these elements to select it and the GUI will display
+ some information about the element and its associated data.</p>
+<p>Below is the full specification on keyboard controls.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><kbd>Q</kbd></td>
+<td>Toggle using vertex normals (Part 3)</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>F</kbd></td>
+<td>Flip the selected edge (Part 4)</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>S</kbd></td>
+<td>Split the selected edge (Part 5)</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>L</kbd></td>
+<td>Upsample the current mesh (Part 6)</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>N</kbd></td>
+<td>Select the next half-edge</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>T</kbd></td>
+<td>Select the twin half-edge</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>W</kbd></td>
+<td>Toggle wireframe</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>I</kbd></td>
+<td>Toggle information overlay</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>SPACE</kbd></td>
+<td>Reset camera to default position</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>0</kbd> - <kbd>9</kbd></td>
+<td>Switch between GLSL shaders</td>
+</tr>
+<tr>
+<td style="text-align:center"><kbd>R</kbd></td>
+<td>Recompile shaders</td>
+</tr>
+</tbody>
+</table>
+<p>You can also use your mouse to:</p>
+<ul>
+<li><strong>Click and drag a vertex</strong> to change its position.</li>
+<li><strong>Click and drag background</strong> or <strong>right click and drag anywhere</strong> to rotate the camera.</li>
+<li><strong>Scroll</strong> to adjust the camera zoom.</li>
+</ul>
+<p>You will implement area-weighted vertex normals (<kbd>Q</kbd>), local edge flip (<kbd>F</kbd>), local edge split (<kbd>S</kbd>), and loop subdivision (<kbd>L</kbd>) in <a href="#p3">Part 3</a>, <a href="#p4">Part 4</a>, <a href="#p5">Part 5</a>, and <a href="#p6">Part 6</a>, respectively. Therefore, these four key commands will do nothing until you have completed their respective part.</p>
+<h2>Starter Code Structure</h2>
+<p>Before you start, here is some basic information on starter code structure.</p>
+<p>For Bezier curves and surfaces (<a href="#s1">Section I</a>), you will be filling in member functions of the <code>BezierCurve</code> and <code>BezierPatch</code> class, defined in <code>bezierCurve.h</code> and <code>bezierPatch.h</code>.</p>
+<p>For triangle meshes (<a href="#s2">Section II</a>), you will be filling in member functions of the <code>Vertex</code>,  <code>HalfedgeMesh</code>, and <code>MeshResampler</code> class, defined in <code>halfEdgeMesh.h</code>.</p>
+<p><strong>We have put dummy definitions for all the functions you will need to modify within <code>student_code.cpp</code>. You will implement all parts of this assignment <em>only</em> in this file!</strong></p>
+<h2><a id="s1"></a> Section I: Bezier Curves and Surfaces</h2>
+<p>In computer graphics, Bezier curves and surfaces are frequently used 
+to model smooth and infinitely scalable curves and surfaces, such as in <a href="https://www.adobe.com/products/illustrator.html">Adobe Illustrator</a> (a curve drawing program) and in <a href="https://www.blender.org/">Blender</a> (a surface modeling program).</p>
+<p>A Bezier curve of degree <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> is defined by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(n + 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> control points. It is a parametric curve based on a single parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>, ranging between 0 and 1.</p>
+<p>Similarly, a Bezier surface of degree <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(n, m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">n</span><span class="mpunct">,</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span> is defined by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>×</mo><mo>(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(n + 1)\times(m + 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">×</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> control points. It is a parametric surface based on two parameters <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>, both ranging between 0 and 1.</p>
+<p>In Section I, you will use de Casteljau algorithm to evaluate Bezier 
+curves and surfaces for any given set of control points and parameters, 
+such as the Beizer curve below. In the image, white squares are the 
+given control points, blue sqares are the intermediate control points 
+evaluated at the given parameter by de Casteljau algorithm, and the red 
+square is the final evaluated point that lies on the Bezier curve.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_20.jpg" alt=""></p>
+<h3><a id="p1"></a> Part 1: Bezier Curves with 1D de Casteljau Subdivision (10 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/7/"><strong>Relevant Lecture: 7</strong></a></p>
+<p>In Part 1, you will implement Bezier curves. To get started, take a look at <code>bezierCurve.h</code> and examine the member variables defined in the class. Specifically, you will primarily be working with the following:</p>
+<ul>
+<li><code>std::vector&lt;Vector2D&gt; controlPoints</code>: A <code>std::vector</code> of original control points that define the Bezier curve, initialized from input Bezier curve file (<code>.bzc</code>).</li>
+<li><code>float t</code>: A parameter at which to evaluate the Bezier curve, ranging between 0 to 1.</li>
+</ul>
+<p>Recall from lecture that de Casteljau algorithm gives us the following step:</p>
+<p>Given <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> (possibly intermediate) control points <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>p</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">p_1, ..., p_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> and the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>, we can use linear interpolation to compute the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span> intermediate control points at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> in the next subdivision level, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>p</mi><mn>1</mn><mrow><mi mathvariant="normal">′</mi></mrow></msubsup><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msubsup><mi>p</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi mathvariant="normal">′</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">p_1', ..., p_{n-1}'</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:1.058331em;vertical-align:-0.30643899999999996em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.24810799999999997em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.24810799999999997em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.36299999999999993em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>, where</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>p</mi><mi>i</mi><mrow><mi mathvariant="normal">′</mi></mrow></msubsup><mo>=</mo><mi>l</mi><mi>e</mi><mi>r</mi><mi>p</mi><mo>(</mo><msub><mi>p</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><mi>t</mi><mo>)</mo><mo>=</mo><mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo><msub><mi>p</mi><mi>i</mi></msub><mo>+</mo><mi>t</mi><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">p_i' = lerp(p_i, p_{i+1}, t) = (1 - t)p_i + tp_{i+1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8018919999999999em;"></span><span class="strut bottom" style="height:1.051892em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.247em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span style="top:-0.4129999999999999em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">t</span><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<p>When we apply this step to the resulting <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span> intermediate control points, we obtain <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">2</span></span></span></span>
+ intermediate control points at the next subdivision level. Applying 
+this step successively, we will eventually arrive at a final, single 
+point and this point, by definition, lies <strong>on</strong> the Bezier curve at the given paramter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>.</p>
+<p>You will need to implement this <strong>single step</strong> of de Casteljau algorithm in <code>BezierCurve::evaluateStep(...)</code> in <code>student_code.cpp</code>. This function takes as input a <code>std::vector</code> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> points and outputs a <code>std::vector</code> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span> intermediate control points at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> in the next subdivision level. <strong>Each call to this function should perform only <em>one</em> step of the algorithm, i.e., <em>one</em> level of subdivision.</strong> Note that the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> is a member variable of the <code>BezierCurve</code> class, which you have access to within the function.</p>
+<p><strong>Correction:</strong> An earlier version of the description claimed that <code>BezierCurve::evaluateStep(...)</code> was recursive. This is incorrect and you do <strong>not</strong> need to call the function within itself.</p>
+<h4>Implementation Notes</h4>
+<p><code>std::vector</code> is similar to Java's <code>ArrayList</code> class. You should use the <code>push_back(...)</code> method to add elements to a <code>std::vector</code>. This is analogous to the <code>append(...)</code> method of <code>ArrayList</code>. You can view this page for <a href="https://en.cppreference.com/w/cpp/container/vector/push_back">more information on <code>push_back(...)</code></a>.</p>
+<h4>Sanity Check</h4>
+<p>To check if your implementation is likely correct, you can run <code>meshedit</code> with a Bezier curve file (<code>.bzc</code>) and view the generated Bezier curve on screen. Refer back here for <a href="#c1">a list of controls <strong>only</strong> for Section I Part 1</a>.</p>
+<p>For example, you can run the following command:</p>
+<pre><code>./meshedit ../bzc/curve1.bzc    
+</code></pre>
+<p>where <code>bzc/curve1.bzc</code> is a cubic Bezier curve. The provided <code>bzc/curve2.bzc</code> is a degree-4 Bezier curve. Feel free to create your own <code>.bzc</code> files and explore other Bezier curves.</p>
+<h4>Functions to Modify: Part 1</h4>
+<ul>
+<li><code>BezierCurve::evaluateStep(...)</code></li>
+</ul>
+<h4>For Your Write-Up: Part 1</h4>
+<ul>
+<li>Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.</li>
+<li>Take a look at the provided <code>.bzc</code> files and create your own Bezier curve with <strong>6</strong> control points of your choosing. Use this Bezier curve for your screenshots below.</li>
+<li>Show screenshots of each step / level of the evaluation from the 
+original control points down to the final evaluated point. Press <kbd>E</kbd> to step through. Toggle <kbd>C</kbd> to show the completed Bezier curve as well.</li>
+<li>Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> via mouse scrolling.</li>
+</ul>
+<h3><a id="p2"></a> Part 2: Bezier Surfaces with Separable 1D de Casteljau (15 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/7/"><strong>Relevant Lecture: 7</strong></a></p>
+<p>In Part 2, you will adapt what you have implemented for Bezier curves to Bezier surfaces. To get started, take a look at <code>bezierPatch.h</code> and examine the member variables defined in the class. Specifically, you will primarily be working with the following:</p>
+<ul>
+<li><code>std::vector&lt;std::vector&lt;Vector3D&gt;&gt; controlPoints</code>: A 2D <code>std::vector</code> that has <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n \times m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord mathit">m</span></span></span></span> grid of original control points. <code>controlPoints</code> is of size <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> and each inner <code>std::vector</code>, i.e., <code>controlPoints[i]</code>, contains <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> control points at the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>th-row. For example, <code>controlPoints[0]</code> and <code>controlPoints[n-1]</code> each have <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> control points at the bottom row and the top row, respectively.</li>
+</ul>
+<p>Recall from lecture that separable 1D de Casteljau algorithm works as the following:</p>
+<p>The inputs to the algorithm are (1) a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n \times m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord mathit">m</span></span></span></span> grid of original control points, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span> are row and column index, and (2) the two parameters <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>.</p>
+<p>We first consider that each <strong>row</strong> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> control points, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>i</mi><mn>0</mn></mrow></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>P</mi><mrow><mi>i</mi><mo>(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">P_{i0}, ..., P_{i(m-1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:1.03853em;vertical-align:-0.3551999999999999em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mord mathrm">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.18019999999999992em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>, define a Bezier curve parameterized by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span>. We can successively apply a single step of de Casteljau algorithm to evaluate the final, single point <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> that lies on this Bezier curve at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span>.</p>
+<p>We then consider that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> for all <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> rows define a Bezier curve parameterized by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>. (These <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> points lie roughly along a column. This <a href="https://cs184.eecs.berkeley.edu/sp19/lecture/7-90/geometry-and-splines">lecture slide</a>
+ may help you visualize.) We can again successively apply a single step 
+of de Casteljau algorithm to evaluate the final, single point <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span> that lies on this Bezier curve at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>. This point <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span>, by definition, lies <strong>on</strong> the Bezier surface at the given parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>.</p>
+<p>You need to implement the following functions in <code>student_code.cpp</code>:</p>
+<ul>
+<li><code>BezierPatch::evaluateStep(...)</code>: Very similar to <code>BezierCurve::evaluateStep(...)</code> in Part 1, this function takes as inputs a <code>std::vector</code> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> points and a parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>. It outputs a <code>std::vector</code> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span> intermediate control points at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> in the next subdivision level.</li>
+<li><code>BezierPatch::evaluate1D(...)</code>: This function takes as inputs a <code>std::vector</code> of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> points and a parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>. It outputs directly <strong>the final, single point</strong> that lies on the Bezier curve at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>. This function does <strong>not</strong> output intermediate control points. You may want to call <code>BezierPatch::evaluateStep(...)</code> within this function.</li>
+<li><code>BezierPatch::evaluate(...)</code>: This function takes as inputs the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>; and it outputs the point that lies on the Bezier surface, defined by the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n \times m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord mathit">m</span></span></span></span> <code>controlPoints</code>, at the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>. Note that <code>controlPoints</code> is a member variable of the <code>BezierPatch</code> class, which you have access to within this function.</li>
+</ul>
+<p><strong>Correction:</strong> An earlier version of the description claimed that <code>BezierPatch::evaluateStep(...)</code> was recursive. This is incorrect and you do <strong>not</strong> need to call the function within itself.</p>
+<h4>Sanity Check</h4>
+<p>To check if your implementation is likely correct, you can run <code>meshedit</code> with a Bezier surface file (.bez) and view the generated Bezier surface on screen.</p>
+<p>For example, you can run the following command and you should see a teapot:</p>
+<pre><code>./meshedit ../bez/teapot.bez
+</code></pre>
+<h4>Functions to Modify: Part 2</h4>
+<ul>
+<li><code>BezierPatch::evaluateStep(...)</code></li>
+<li><code>BezierPatch::evaluate1D(...)</code></li>
+<li><code>BezierPatch::evaluate(...)</code></li>
+</ul>
+<h4>For Your Write-Up: Part 2</h4>
+<ul>
+<li>Briefly explain how de Casteljau algorithm extends to Bezier 
+surfaces and how you implemented it in order to evaluate Bezier 
+surfaces.</li>
+<li>Show a screenshot of <code>bez/teapot.bez</code> (<strong>not</strong> <code>.dae</code>) evaluated by your implementation.</li>
+</ul>
+<h2><a id="s2"></a> Section II: Triangle Meshes and Half-Edge Data Structure</h2>
+<p><strong>Important Notes:</strong></p>
+<ul>
+<li>In Section II, you will be working extensively with the half-edge data structure, as well as the provided <code>HalfedgeMesh</code> class, which implements the data structure.</li>
+<li>Before diving into this section, we <strong>recommend</strong> that you read this <a href="https://cs184.eecs.berkeley.edu/sp20/article/17/an-introduction-to-half-edge-dat">introduction to half-edge data strucutre</a> to reinforce your understanding of it from <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8/meshes-and-geometry-processing">Lecture 8</a>.</li>
+<li>We also <strong>highly, highly recommend</strong> that you carefully read through this primer on <a href="https://cs184.eecs.berkeley.edu/sp20/article/18/a-primer-on-the-halfedgemesh-cla">how to navigate meshes using the <code>HalfedgeMesh</code> class</a>. The primer will help you get familiar with the provided <code>HalfedgeMesh</code> class quickly and present many examples, complete with code, that you may find very helpful for this section!</li>
+<li>Finally, we encourage you to read and understand the documentation at the beginning of <code>halfedgeMesh.h</code>, which provides supplementary information to the primer.</li>
+</ul>
+<p>In Section I, you have implemented Bezier surfaces, which are 
+parametric surfaces defined by a 2D grid of control points. As discussed
+ in lecture, we can also represent surfaces using <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-1/meshes-and-geometry-processing">triangle meshes</a>.
+ While Bezier surfaces are better at representing smooth surfaces than 
+triangle meshes and require less memory, Bezier surfaces are much more 
+difficult to render directly. (Can you reason why this is the case?) In 
+fact, Bezier surfaces are often converted into triangle meshes before 
+being rendered to screen.</p>
+<p>As a result, triangle meshes are sometimes the preferred way to 
+represent 3D geometric models in computer graphics. One way to store a 
+triangle mesh is as a list of vertices and a list of triangles indexing 
+the vertices, illustrated in this <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-13/meshes-and-geometry-processing">lecture slide</a>.
+ Unfortunately, such simple data structure does not allow for meaningful
+ traversal of meshes required by many geometry processing tasks. For 
+example, to find all triangles neighbouring a given triangle, we must 
+iterate through the entire list of triangles, which can be prohibitively
+ expensive if the mesh has <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-2/meshes-and-geometry-processing">millions of triangles</a>.</p>
+<p>To help answer the neighbouring triangle query and many others more efficiently, the <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-22/meshes-and-geometry-processing">half-edge data structure</a>
+ explicitly stores the connectivity information among mesh elements, 
+i.e., vertices, edges, and faces. Throughout this section, you will use 
+the half-edge data structure to implement a few commonly used geometric 
+operations; and we hope you will get to appreciate the simplicity and 
+flexibility of this data structure.</p>
+<h3><a id="p3"></a> Part 3: Area-Weighted Vertex Normals (10 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8/"><strong>Relevant Lecture: 8</strong></a></p>
+<p>In Part 3, you will implement area-weighted normal vectors at vertices. Recall from <a href="https://cs184.eecs.berkeley.edu/sp19/lecture/6-31/the-rasterization-pipeline">lecture</a> that these vertex normals can be used for <a href="https://upload.wikimedia.org/wikipedia/commons/e/ec/Phongshading01.png">Phong shading</a>, which provides better shading for smooth surfaces than <a href="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flatshading01.png">flat shading</a> (image credit: Wikipedia).</p>
+<p>To get started, take a look at the <code>Vertex</code> class defined in <code>halfedgeMesh.h</code>, along with the very helpful comments within the class. In short, a <code>Vertex</code> object encapsulates a single mesh vertex and has member variables such as the following (the list is <strong>not</strong> exhaustive):</p>
+<ul>
+<li><code>Vector3D position</code>: The 3D coordinate of this vertex.</li>
+<li><code>HalfedgeIter&amp; halfedge</code>: A reference to the half-edge rooted at this vertex.</li>
+<li><code>HalfedgeCIter halfedge</code>: The same half-edge as above, except this variable is <code>const</code> (i.e., constant) and cannot be modified.</li>
+</ul>
+<p>To compute an area-weighted normal at a given vertex, you should use 
+the half-edge data structure to iterate through faces (triangles) 
+incident to the vertex, i.e., faces that have the given vertex as one of
+ its vertices. For each such face, you weight its normal by its area. 
+Finally, you normalize the sum of all area-weighted normals.</p>
+<p>You need to implement this part in <code>Vertex::normal()</code> in <code>student_code.cpp</code>. This function takes no input and outputs the area-weighted vertex normal. Since <code>normal()</code> is a member function of the <code>Vertex</code> class, you have access to the class member variables, such as <code>Vector3D position</code>, within the function. To understand how to iterate through faces incident to a vertex, you may find the example <code>printNeighborPositions(...)</code> in this <a href="https://cs184.eecs.berkeley.edu/sp20/article/18/a-primer-on-the-halfedgemesh-cla">primer</a> helpful. (Hint: A face in the <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-22/meshes-and-geometry-processing">half-edge data structure</a>
+ only points to its associated half-edge. To compute the area and normal
+ of a face, what you really need are its three vertices instead of the 
+face itself.)</p>
+<h4>Implementation Notes</h4>
+<p>For Part 3 only, you are implementing a <code>const</code> (i.e., 
+constant) member function, which requires that no code within this 
+function modifies any member variables. This just means that you should 
+use <code>HalfedgeCIter</code> and not <code>HalfedgeIter</code> in <code>Vertex::normal()</code>.</p>
+<p>For more information on the differences between <code>Halfedge *</code>, <code>HalfedgeIter</code>, and <code>HalfedgeCIter</code>, check out this short article on <a href="https://cs184.eecs.berkeley.edu/sp20/article/16/iterators-vs-pointers">Iterators vs Pointers</a>.</p>
+<h4>Sanity Check</h4>
+<p>To check if your implementation is likely correct, you can run <code>meshedit</code> with a COLLADA mesh file (<code>.dae</code>). Once the model is loaded, press <kbd>Q</kbd> to toggle the area-averaged normals, which calls <code>Vertex::normal()</code> you have implemented, and the shading of the model should become <a href="https://upload.wikimedia.org/wikipedia/commons/e/ec/Phongshading01.png">smoother</a> and no longer <a href="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flatshading01.png">flat</a>. Refer back here for <a href="#c2">a list of controls for Section I Part 2 and onwards</a>.</p>
+<p>For example, you can run the following command:</p>
+<pre><code>./meshedit ../dae/teapot.dae
+</code></pre>
+<p>After you press <kbd>Q</kbd>, the shading of the teapot should look 
+smooth like the image below. If your shading differs from the image, 
+your implementation of <code>Vertex::normal()</code> is likely 
+incorrect. One common mistake is that the computed normals point towards
+ the interior of the model, as opposed to the exterior required by 
+computer graphics. The oppositely oriented normals lead to very dark 
+shading, which can be fixed by reversing the normals.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_18.jpg" alt=""></p>
+<h4>Functions to Modify: Part 3</h4>
+<ul>
+<li><code>Vertex::normal()</code></li>
+</ul>
+<h4>For Your Writeup: Part 3</h4>
+<ul>
+<li>Briefly explain how you implemented the area-weighted vertex normals.</li>
+<li>Show screenshots of <code>dae/teapot.dae</code> (<strong>not</strong> <code>.bez</code>) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.</li>
+</ul>
+<h3><a id="p4"></a> Part 4: Edge Flip (15 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8/"><strong>Relevant Lecture: 8</strong></a></p>
+<p>In Part 4, you will implement a local remeshing operation on an edge, called a <strong>flip</strong>. Given a pair of triangles <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(c,b,d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">c</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span>, a flip operation on their shared edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> converts the original pair of triangles into a new pair <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,d,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,b,d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span>, as shown below:</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_9.jpg" alt=""></p>
+<p>You need to implement this part in <code>HalfedgeMesh::flipEdge(...)</code> in <code>student_code.cpp</code>. This function takes as input an <code>EdgeIter</code> to an edge that needs to be flipped, e.g., edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> above, and outputs an <code>EdgeIter</code> to the now flipped edge, e.g., edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span> above.</p>
+<p><a id="rec"></a> To properly implement any remeshing operations, you 
+need to take extra care to make sure that, in the modified mesh, all 
+pointers of all mesh elements still point to the righ elements. A mesh 
+element is a half-edge, vertex, edge, or face. Here is a <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-22/meshes-and-geometry-processing">refresher</a> on what each mesh element points to. We <strong>recommend</strong>
+ that you perform the following steps to ensure that all pointers of all
+ elements are still valid after remeshing operations, such as edge flips
+ in this part or edge splits in the next part:</p>
+<ol>
+<li>Draw a simple mesh, such as the pair of triangles <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(c,b,d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">c</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span> above, and write down a list of all elements, i.e., half-edges, vertices, edges, and faces, in this mesh.</li>
+<li>Draw the mesh after the remeshing operation and again write down a list of all elements in the now modified mesh.</li>
+<li>If the remeshing operation adds new elements in the modified mesh, create these new elements. An edge flip <strong>does not</strong> add new elements, but an edge split in Part 5 <strong>does</strong>.</li>
+<li>For <strong>every</strong> element in the modified mesh, set <strong>all</strong> of its pointers to the correct element in the modified mesh, <strong>even if</strong> the element being pointed to has not changed:
+<ul>
+<li>For each vertex, edge, and face, set its <code>halfedge</code> pointer.</li>
+<li>For each half-edge, set its <code>next</code>, <code>twin</code>, <code>vertex</code>, <code>edge</code>, and <code>face</code> pointer to the correct element. You can use <code>Halfedge::setNeighbors(...)</code> to set all pointers of a half-edge at once.</li>
+<li>We recommend setting all pointers of all elements in the modified 
+mesh, not just the ones that have changed, because it is very easy to 
+miss a pointer and get errors that are very difficult to debug. Once you
+ are sure that your implementation works, you can remove the unnecessary
+ pointer assignments if you wish.</li>
+</ul>
+</li>
+</ol>
+<p>Your implementation of <code>HalfedgeMesh::flipEdge(...)</code> should do the following:</p>
+<ul>
+<li>Never flip a boundary edge. The function should simply return 
+immediately if either neighbouring face of the edge is on a boundary 
+loop. Every mesh element has a useful <code>isBoundary()</code> function that returns true if the element is on the boundary.</li>
+<li>Perform only a constant amount of work. The cost of flipping a single edge should not be proportional to the mesh size.</li>
+<li>Do <strong>not</strong> add or delete any mesh elements. There 
+should be exactly the same number of elements before and after the edge 
+flip. You only need to reassign pointers.</li>
+</ul>
+<h4>Implementation Notes</h4>
+<p>Given any mesh element, you can use the provided <code>check_for(...)</code>
+ debugging function to check which other elements in the mesh point to 
+it. For example, you can use this function to confirm if an element is 
+pointed to by the right number of other elements. Please read the 
+Debugging Aid section in this <a href="https://cs184.eecs.berkeley.edu/sp20/article/18/a-primer-on-the-halfedgemesh-cla">primer on the <code>HalfedgeMesh</code> class</a> for more information.</p>
+<h4>Sanity Check</h4>
+<p>After loading a model from a <code>.dae</code> file, you can click to select an edge and press <kbd>F</kbd> to flip it. Refer back here for <a href="#c2">a list of controls for Section I Part 2 and onwards</a>. Sometimes, your implementation may seem to work when you flip an edge only once. We recommend that you flip an edge <strong>a few more times</strong>
+ to be more certain that your code really works as expected. Part 6 will
+ require you to have a working implementation of edge flips.</p>
+<h4>Functions to Modify: Part 4</h4>
+<ul>
+<li><code>HalfedgeMesh::flipEdge(...)</code></li>
+</ul>
+<h4>For Your Writeup: Part 4</h4>
+<ul>
+<li>Briefly explain how you implemented the edge flip operation and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Show screenshots of a mesh before and after some edge flips.</li>
+<li>Write about your eventful debugging journey, if you have experienced one.</li>
+</ul>
+<h3><a id="p5"></a> Part 5: Edge Split (15 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8/"><strong>Relevant Lectures: 8</strong></a></p>
+<p>In Part 5, you will implement a different local remeshing operation on an edge, called a <strong>split</strong>. Given a pair of triangles <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(a,b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(c,b,d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">c</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span>, a split operation on their shared edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> inserts a new vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> at its midpoint and connects the new vertex to each opposing vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">d</span></span></span></span>, yielding four triangles as shown below:</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_10.jpg" alt=""></p>
+<p>You need to implement this part in <code>HalfedgeMesh::splitEdge(...)</code> in <code>student_code.cpp</code>. This function takes as input an <code>EdgeIter</code> to an edge that needs to be split, e.g., edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> above, and outputs a <code>VertexIter</code> to the newly inserted vertex, e.g., vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> above.</p>
+<p>Because an edge split adds new mesh elements, e.g., a new vertex, two
+ new triangles, three new edges, and etc, you will have more pointers to
+ keep track of and may find that an edge split is a little trickier to 
+implement than an edge flip. We encourage you to again follow <a href="#rec">our recommendation in Part 4</a> to ensure that all pointers of all mesh elements point to the right elements in the modified mesh.</p>
+<p>Your implementation of <code>HalfedgeMesh::splitEdge(...)</code> should do the following:</p>
+<ul>
+<li>Ignore requests to split boundary edges, unless you are trying for 
+extra credit. The function can simply return immediately if either 
+neighbouring face of the edge is on a boundary loop. Note that splitting
+ a boundary edge <strong>does</strong> make sense, but flipping a boundary edge <strong>does not</strong> make sense. (Can you reason why this is the case?)</li>
+<li>Assign the position of the new vertex to the midpoint of the original edge. Remember from <a href="#p3">Part 3</a> that the <code>Vertex</code> class has a member variable <code>Vector3D position</code>.</li>
+<li>Perform only a constant amount of work. The cost of splitting a single edge should not be proportional to the mesh size.</li>
+<li>Create only as many new elements as needed. The mesh should <strong>not</strong> have any elements that is not connected to the rest of the mesh.</li>
+</ul>
+<p><strong>Extra Credit:</strong> <em>Support edge splits for boundary edges.</em> For this, you will need to carefully read the Section "Mesh Boundary in the <code>HalfedgeMesh</code> class" in this <a href="https://cs184.eecs.berkeley.edu/sp20/article/18/a-primer-on-the-halfedgemesh-cla">primer</a>. In short, you will split the edge in half, but only split in half the face that is non-boundary.</p>
+<h4>Sanity Check</h4>
+<p>After loading a model from a <code>.dae</code> file, you can click to select an edge and press <kbd>S</kbd> to split it. Refer back here for <a href="#c2">a list of controls for Section I Part 2 and onwards</a>.
+ To verify that your implementation is likely correct, you can flip some
+ edges that you have split and then split some edges that you have 
+flipped. You can also alternate between flipping and splitting edges 
+many times in mesh regions that are nearby and far apart; and check if 
+the mesh changes correctly. Part 6 will require you to have a working 
+implementation of edge splits.</p>
+<h4>Functions to Modify: Part 5</h4>
+<ul>
+<li><code>HalfedgeMesh::splitEdge(...)</code></li>
+</ul>
+<h4>For Your Writeup: Part 5</h4>
+<ul>
+<li>Briefly explain how you implemented the edge split operation and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Show screenshots of a mesh before and after some edge splits.</li>
+<li>Show screenshots of a mesh before and after a combination of both edge splits and edge flips.</li>
+<li>Write about your eventful debugging journey, if you have experienced one.</li>
+<li>If you have implemented support for boundary edges, show screenshots
+ of your implementation properly handling split operations on boundary 
+edges.</li>
+</ul>
+<h3><a id="p6"></a> Part 6: Loop Subdivision for Mesh Upsampling (25 pts)</h3>
+<p><a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8/"><strong>Relevant Lecture: 8</strong></a></p>
+<p>Sometimes, we may wish to convert a coarse polygon mesh into a 
+higher-resolution one for better display, more accurate simulation, and 
+etc. Such conversion requires an upsampling algorithm that nicely 
+interpolates or approximates the original mesh vertices.</p>
+<p>Unfortunately, the techniques we have learned to upsample 2D images, such as bilinear filtering in <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/5-45/texture-mapping">Lecture 5</a>, do not easily translate to upsampling 3D meshes. Among many reasons, a mesh often has vertices at <strong>irregular</strong> locations, as opposed to a regular grid like an image. (Can you think of other reasons?)</p>
+<p>In Part 6, you will implement a mesh upsampling method, called <strong>loop subdivision</strong>.
+ In short, loop subdivision upsamples a mesh by (1) subdividing each of 
+its triangles into four smaller triangles and (2) updating all vertices 
+of the subdivided mesh based on some weighting scheme.</p>
+<p>You need to implement these two steps of loop subdivision, outlined in more details below, in <code>MeshResampler::upsample(...)</code> in <code>student_code.cpp</code>.
+ This function has no outputs and takes as input a mesh that will be 
+subdivided. The input mesh is passed into the function as a reference, 
+i.e., <code>HalfedgeMesh&amp;</code>. Therefore, any changes made to the input mesh within <code>MeshResampler::upsample(...)</code> will still be visible outside this function.</p>
+<p>A single iteration of loop subdivision consists of the following two 
+steps. If we repeatedly apply these two steps, we will converge to a 
+smooth approximation of our original mesh.</p>
+<ol>
+<li>
+<p>Subdivide each triangle in the mesh into four by connecting edge midpoints, as shown below. This is called a <strong>4-1 subdivision</strong>.
+<img src="Assignment%202%20-%20MeshEdit_files/9_11.jpg" alt="">
+To perform 4-1 subdivisions over the entire mesh, you can use the edge 
+flip and edge split operations you have already implemented. 
+Specifically, you can do the following:
+<img src="Assignment%202%20-%20MeshEdit_files/9_14.jpg" alt="">
+[1] Split every <strong>original edge</strong> of the mesh in any order.</p>
+<p><strong>Important Note:</strong> You should <strong>only</strong> split edges that are in the original, coarse mesh. You should <strong>not</strong>
+ split any new edges created by edge split operations. Otherwise, you 
+will be splitting edges forever and this step will never terminate! :(</p>
+<p>[2] Flip any <strong>new edge</strong> that connects an <strong>old vertex</strong> and a <strong>new vertex</strong>.</p>
+<p><strong>Important Note:</strong> After the previous step, in addition
+ to some brand new edges created by the edge split operations, every 
+original edge will now also be represented by 2 edges. You should <strong>not</strong> flip these edges that are on the original edges. (Can you reason why?) More concretely, in the figure above, you should <strong>only</strong> flip blue edges that connect an old vertex and new vertex. You should <strong>not</strong> flip any new, black edges.</p>
+</li>
+<li>
+<p>Update vertex positions as weighted average of neighboring vertex positions.</p>
+<p>The figure below shows the weights we use to [1] compute the position
+ of a newly added vertex or to [2] update the position of an existing 
+vertex. The new vertex and old vertex are depicted as the white circle 
+in their respective mesh.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_13.jpg" alt=""></p>
+<p>[1] The position of a new vertex splitting the shared edge <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(A, B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">A</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span> between a pair of triangle <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>A</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(A, C, B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">A</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>D</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(A, B, D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">A</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span> is</p>
+<pre><code>3/8 * (A + B) + 1/8 * (C + D)
+</code></pre>
+<p>[2] The updated position of an old vertex is</p>
+<pre><code>(1 - n * u) * original_position + u * original_neighbor_position_sum
+</code></pre>
+<p>where <code>n</code> is the vertex degree, i.e., number of edges connected to the vertex, <code>u</code> is the constant shown in the figure, <code>original_position</code> is the <strong>original</strong> position of the old vertex, and <code>original_neighbor_position_sum</code> is the sum of all <strong>original</strong> positions of the neighboring vertices. Look here for <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-37/meshes-and-geometry-processing">an example of degree-6 vertex</a>.</p>
+</li>
+</ol>
+<h4>Implementation Notes</h4>
+<p>While you can implement loop subdivision exactly as described above, we actually <strong>recommend</strong> that you pre-compute the updated vertex positions <strong>before</strong> performing 4-1 subdivisions over the entire mesh. More pecifically, you may want to follow the steps below:</p>
+<ul>
+<li>Step A: Pre-compute the updated positions of both new and old vertices using the original, coarse mesh.</li>
+<li>Step B: Subdivide the original mesh via edge splits and edge flips as described.</li>
+<li>Step C: Update all vertex positions in the subdivided mesh using the pre-compute values from Step A.</li>
+</ul>
+<p>We recommend pre-computing updated vertex positions before 
+subdivision because traversing a coarse mesh is much easier than 
+traversing a subdivided mesh with more elements. For example, for the 
+new vertex in the figure above, how would you traverse the original mesh
+ with 2 triangles to find vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span>, and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span>? Now how would you traverse the subdivided mesh with 8 triangles to find the same four vertices?</p>
+<p>If you choose to follow our recommendation, you may consider using the following member variables of the <code>Vertex</code> and <code>Edge</code> class to facilitate your implementation:</p>
+<ul>
+<li><code>Vector3D Vertex::newPosition</code> temporarily stores the updated position of a new or old vertex.</li>
+<li><code>Vector3D Edge::newPosition</code> temporarily stores the position of a new vertex that will ultimately be inserted at the edge midpoint.</li>
+<li><code>bool Vertex::isNew</code> flags whether a vertex exists in the
+ original mesh or is a new vertex inserted at an edge midpoint by 
+subdivision. This flag may help you determine if an edge should be split
+ or flipped in Step B.</li>
+<li><code>bool Edge::isNew</code> flags whether an edge exists in the 
+original mesh or is a new edge added by subdivision. This flag may help 
+you determine if an edge should be flipped in Step B.</li>
+</ul>
+<p><strong>Important Notes:</strong></p>
+<ul>
+<li>You <strong>must</strong> initialize <code>Vertex::isNew</code> and <code>Edge::isNew</code> yourself. The input mesh may not have these values initialized for its vertices and edges.</li>
+<li>While pre-computing the updated vertex positions in Step A, you should <strong>not</strong> change the value of member variable <code>Vector3D Vertex::position</code> because the weighted average is based on vertex positions in the <strong>original</strong> mesh. (Please take a moment to understand why.) You will, however, need to update <code>Vertex::position</code> in Step C for the now subdivided mesh.</li>
+</ul>
+<p><strong>Extra Credit:</strong> <em>Support subdivisions with sharp creases.</em> <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-56/meshes-and-geometry-processing">Sharp creases</a> are often desired in 3D polygon meshes, but are not supported by the basic loop subdivision algorithm. You can follow this <a href="https://cs184.eecs.berkeley.edu/sp20/lecture/8-57/meshes-and-geometry-processing">lecture slide</a>
+ to incorporate creases into subdivision. You may find that the layer of
+ geometric sophistication added by creases would make your subdivided 
+mesh an even stronger contender for the mesh competition in <a href="#p7">Part 7</a>.</p>
+<p><strong>Extra Credit:</strong> <em>Support meshes with boundary.</em>
+ You will first need to make sure that your edge split function 
+appropriately handles boundary edges. You do not need to change your 
+edge flip function. You will also need a different weighted average for 
+boundary vertices. See <a href="http://mrl.nyu.edu/~dzorin/papers/boiermartin2005sbt.pdf">"A Survey of Subdivision-Based Tools for Surface Modeling"</a> for more information.</p>
+<p><strong>Extra Credit:</strong> <em>Implement additional subdivision schemes.</em> There exist many alternatives to loop subdivision.  Triangle subdivision schemes include the <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.133.8925&amp;rep=rep1&amp;type=pdf">Butterfly scheme</a>, the <a href="http://mrl.nyu.edu/~dzorin/papers/zorin1996ism.pdf">modified Butterfly scheme</a>, and <a href="https://www.graphics.rwth-aachen.de/media/papers/sqrt31.pdf"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msqrt><mrow><mn>3</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9072200000000001em;"></span><span class="strut bottom" style="height:1.04em;vertical-align:-0.13277999999999995em;"></span><span class="base textstyle uncramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.06722000000000006em;"><span class="style-wrap reset-textstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord textstyle cramped"><span class="mord mathrm">3</span></span></span><span style="top:-0.8272200000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span></span></span></span>-Subdivision</a>. One of the most popular subdivision schemes for quadrilateral meshes is <a href="https://en.wikipedia.org/wiki/Catmull%E2%80%93Clark_subdivision_surface">Catmull-Clark</a>. There are also special subdivision schemes, such as <a href="http://www.cise.ufl.edu/research/SurfLab/papers/09bi3c2polar.pdf">polar subdivision</a> for handling meshes with vertices of high degree.</p>
+<h4>Sanity Check</h4>
+<p>After loading a model from a <code>.dae</code> file, you can press <kbd>L</kbd> to subdivide it. Refer back here for <a href="#c2">a list of controls for Section I Part 2 and onwards</a>.
+ Examples below illustrate the correct behavior of the loop subdivision 
+algorithm. Your implementation should work for other meshes as well, 
+e.g., <code>dae/teapot.dae</code> and <code>dae/cow.dae</code>.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_12.jpg" alt=""></p>
+<h4>Functions to Modify: Part 6</h4>
+<ul>
+<li><code>MeshResampler::upsample(...)</code></li>
+</ul>
+<h4>For Your Writeup: Part 6</h4>
+<ul>
+<li>Briefly explain how you implemented the loop subdivision and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Take some notes, as well as some screenshots, of your observations 
+on how meshes behave after loop subdivision. What happens to sharp 
+corners and edges? Can you reduce this effect by pre-splitting some 
+edges?</li>
+<li>Load <code>dae/cube.dae</code>. Perform several iterations of loop 
+subdivision on the cube. Notice that the cube becomes slightly 
+asymmetric after repeated subdivisions. Can you pre-process the cube 
+with edge flips and splits so that the cube subdivides symmetrically? 
+Document these effects and explain why they occur. Also explain how your
+ pre-processing helps alleviate the effects.</li>
+<li>If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.</li>
+</ul>
+<h2><a id="s3"></a> Section III: Mesh Competition (Optional, Possible Extra Credit)</h2>
+<h3><a id="p7"></a> Part 7: Design and Edit Your Own Mesh!</h3>
+<p>In Part 7, you will design your own polygon mesh using the free program <a href="http://blender.org/">Blender</a> and save it as a COLLADA mesh file (<code>.dae</code>). For a baseline starting point, we recommend designing a humanoid mesh with a head, two arms, and two legs. We have created a <a href="https://cs184.eecs.berkeley.edu/cs184_sp16_content/article_images/blender.mp4">video tutorial</a> and an <a href="https://cs184.eecs.berkeley.edu/sp20/article/14/blender-modeling">article</a> on Blender to guide you through the basics of making a simple humanoid mesh.</p>
+<p>Once you have designed your mesh and saved it as a <code>.dae</code> file, you should load it into the <code>meshedit</code>
+ program and subdivide it to smooth it out. The figure below shows the 
+simple humanoid mesh before and after subdivisions, as well as with a 
+shader of environment map reflection applied.</p>
+<p><img src="Assignment%202%20-%20MeshEdit_files/9_15.jpg" alt=""></p>
+<p>Here are a few ways you can express your creativity:</p>
+<ul>
+<li>Add additional detail to your mesh - fingers, facial features.</li>
+<li>Google "box modeling" (images and videos) to get inspired.</li>
+<li>Investigate additional functionality in Blender to design alternative shapes.</li>
+<li>Programmatically generate a mesh that approximates a 3D fractal or other complex shape.</li>
+<li>Implement loop subdivision while preserving sharp creases, as shown in this <a href="https://cs184.eecs.berkeley.edu/sp19/lecture/8-56/meshes-and-geometry-processing">lecture slide</a></li>
+<li>Write a super cool custom shader that makes your mesh look awesome!</li>
+<li>Implement additional geometric operations and demonstrate them on your mesh.</li>
+</ul>
+<h4>For Your Writeup: Part 7</h4>
+<ul>
+<li>Save your best polygon mesh as <code>competition.dae</code> in your <code>docs</code> folder and show us a screenshot of the mesh in your write-up.</li>
+<li>Include a series of screenshots showing your original mesh and your 
+mesh after one and two rounds of subdivision. If you have used custom 
+shaders, include screenshots of your mesh with those shaders applied as 
+well.</li>
+<li>Describe what you have done to enhance your mesh beyond the simple humanoid mesh described in the tutorial.</li>
+</ul>
+<h2>Friendly Advices From Your GSIs</h2>
+<ul>
+<li>Start early. This assignment has multiple parts and you want to 
+manage your time accordingly. Remember that pesky bugs can waste your 
+time like no other; and always keep in mind <a href="https://en.wikipedia.org/wiki/Hofstadter's_law">Hofstadter's Law</a>.</li>
+<li>Part 1 and 2 should be relatively straightforward to implement once 
+you understand Bezier curves and surfaces and de Casteljau algorithm.</li>
+<li>Part 3 to 6 will be more difficult to implement correctly right away
+ since they involve managing pointers, which are exposed to you as 
+iterators. Make sure you test these parts, especially Part 4 and 5, <strong>together</strong> on a few different meshes. While correct behaviors do not imply correct code, incorrect behaviors do imply incorrect code.</li>
+<li>The optional Part 7 for possible extra credit involves learning how 
+to use Blender, which takes time even with video tutorials. We recommend
+ starting early, in case you have questions. Learning Blender does not 
+depend on any other part of this assignment, so you can do it anytime, 
+perhaps as a nice break from chasing pointers, :).</li>
+<li>Make sure you allocate enough time to do a good job on the write-up!</li>
+</ul>
+<h2>Submission</h2>
+<p>Please consult this article on <a href="https://cs184.eecs.berkeley.edu/sp20/article/15/submitting-cs184-assignments">how to submit assignments for CS184</a>. You will submit your code and some deliverables (see below) in a webpage project write-up.</p>
+<h3>Project Write-Up Guidelines and Instructions</h3>
+<p>We have provided a simple HTML skeleton in <code>index.html</code> found within the <code>docs</code> folder to help you get started and structure your write-up.</p>
+<p>You are also welcome to create your own webpage report from scratch using your own preferred frameworks or tools. However, <strong>please follow the same overall structure as described in the deliverables section below</strong>.</p>
+<p>The goals of your write-up are for you to (1) think about and 
+articulate what you have built and learned in your own words and (2) 
+have a write-up of the project to take away from the class. Your 
+write-up should include the following:</p>
+<ul>
+<li>An overview of the project, including your approach to and 
+implementation for each of the parts, as well as what problems you have 
+encountered and how you solved them. Strive for clarity and 
+succinctness.</li>
+<li>For each part, make sure to include the results described in the corresponding <a href="#rubric">Deliverables</a> section, in addition to your explanation. If you failed to generate any results correctly, provide a brief explanation on why.</li>
+<li>The final, optional part for the mesh competition is where you have 
+the opportunity to be creative and individual! Be sure to provide a good
+ description on what you were going for, what you did, and how you did 
+it, :).</li>
+<li>Clearly indicate any extra credit items you have completed; and 
+provide a thorough explanation and illustration for each of them.</li>
+</ul>
+<p>The write-up is one of our main methods to evaluate your work, so it 
+is important to spend the time to do it correctly and thoroughly. Plan 
+ahead to allocate time for the write-up well before the deadline.</p>
+<h3><a id="rubric"></a> Project Write-Up Deliverables and Rubrics</h3>
+<p>This rubric lists the basic, minimum requirements for your write-up. 
+The content and quality of your write-up are extremely important. You 
+should make sure to at least address all the points listed below. The 
+extra credits are intended for students who want to challenge themselves
+ and explore methods beyond the fundamentals. They are not worth a lot 
+of points, so do not necessarily expect to use extra credit points to 
+make up for lost points elsewhere.</p>
+<h4>Overview</h4>
+<p>Give a high-level overview of what you have implemented in this 
+assignment. Think about what you have built as a whole. Share your 
+thoughts on what interesting things you have learned from completing 
+this assignment.</p>
+<h4>Part 1</h4>
+<ul>
+<li>Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.</li>
+<li>Take a look at the provided <code>.bzc</code> files and create your own Bezier curve with <strong>6</strong> control points of your choosing. Use this Bezier curve for your screenshots below.</li>
+<li>Show screenshots of each step / level of the evaluation from the 
+original control points down to the final evaluated point. Press <kbd>E</kbd> to step through. Toggle <kbd>C</kbd> to show the completed Bezier curve as well.</li>
+<li>Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span> via mouse scrolling.</li>
+</ul>
+<h4>Part 2</h4>
+<ul>
+<li>Briefly explain how de Casteljau algorithm extends to Bezier 
+surfaces and how you implemented it in order to evaluate Bezier 
+surfaces.</li>
+<li>Show a screenshot of <code>bez/teapot.bez</code> (<strong>not</strong> <code>.dae</code>) evaluated by your implementation.</li>
+</ul>
+<h4>Part 3</h4>
+<ul>
+<li>Briefly explain how you implemented the area-weighted vertex normals.</li>
+<li>Show screenshots of <code>dae/teapot.dae</code> (<strong>not</strong> <code>.bez</code>) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.</li>
+</ul>
+<h4>Part 4</h4>
+<ul>
+<li>Briefly explain how you implemented the edge flip operation and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Show screenshots of a mesh before and after some edge flips.</li>
+<li>Write about your eventful debugging journey, if you have experienced one.</li>
+</ul>
+<h4>Part 5</h4>
+<ul>
+<li>Briefly explain how you implemented the edge split operation and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Show screenshots of a mesh before and after some edge splits.</li>
+<li>Show screenshots of a mesh before and after a combination of both edge splits and edge flips.</li>
+<li>Write about your eventful debugging journey, if you have experienced one.</li>
+<li>If you have implemented support for boundary edges, show screenshots
+ of your implementation properly handling split operations on boundary 
+edges.</li>
+</ul>
+<h4>Part 6</h4>
+<ul>
+<li>Briefly explain how you implemented the loop subdivision and 
+describe any interesting implementation / debugging tricks you have 
+used.</li>
+<li>Take some notes, as well as some screenshots, of your observations 
+on how meshes behave after loop subdivision. What happens to sharp 
+corners and edges? Can you reduce this effect by pre-splitting some 
+edges?</li>
+<li>Load <code>dae/cube.dae</code>. Perform several iterations of loop 
+subdivision on the cube. Notice that the cube becomes slightly 
+asymmetric after repeated subdivisions. Can you pre-process the cube 
+with edge flips and splits so that the cube subdivides symmetrically? 
+Document these effects and explain why they occur. Also explain how your
+ pre-processing helps alleviate the effects.</li>
+<li>If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.</li>
+</ul>
+<h4>Part 7</h4>
+<ul>
+<li>Save your best polygon mesh as <code>competition.dae</code> in your <code>docs</code> folder and show us a screenshot of the mesh in your write-up.</li>
+<li>Include a series of screenshots showing your original mesh and your 
+mesh after one and two rounds of subdivision. If you have used custom 
+shaders, include screenshots of your mesh with those shaders applied as 
+well.</li>
+<li>Describe what you have done to enhance your mesh beyond the simple humanoid mesh described in the tutorial.</li>
+</ul>
+<h3>Website Tips and Advices</h3>
+<ul>
+<li>Your main report page should be called <code>index.html</code>.</li>
+<li>Be sure to include and turn in all of the other files, such as images, that are linked in your report!</li>
+<li>Use only <strong>relative</strong> paths to files, such as <code>"./images/image.jpg"</code>.</li>
+<li>Do <strong>not</strong> use absolulte paths, such as <code>"/Users/student/Desktop/image.jpg"</code>.</li>
+<li>Pay close attention to your file extensions. Remember that on UNIX 
+systems, such as the instructional machines, capitalization matters (<code>.png != .jpeg != .jpg != .JPG</code>).</li>
+<li>Be sure to adjust the permissions on your files so that they are world readable. For more information, please see this <a href="https://www.grymoire.com/Unix/Permissions.html">tutorial</a>.</li>
+<li>Start assembling your webpage early to make sure you have a handle 
+on how to edit the HTML code to insert images and format sections.</li>
+</ul>
+</div></div></div></div><footer id="app-footer"></footer></div></div><script src="Assignment%202%20-%20MeshEdit_files/cs184-web-a8fbc5e3.js"></script>
+<script>$_mod_cal184.ready();</script><date-input-polyfill data-open="false"><span class="yearSelect-wrapper"><select class="yearSelect"><option value="1890" selected="selected">1890</option><option value="1891">1891</option><option value="1892">1892</option><option value="1893">1893</option><option value="1894">1894</option><option value="1895">1895</option><option value="1896">1896</option><option value="1897">1897</option><option value="1898">1898</option><option value="1899">1899</option><option value="1900">1900</option><option value="1901">1901</option><option value="1902">1902</option><option value="1903">1903</option><option value="1904">1904</option><option value="1905">1905</option><option value="1906">1906</option><option value="1907">1907</option><option value="1908">1908</option><option value="1909">1909</option><option value="1910">1910</option><option value="1911">1911</option><option value="1912">1912</option><option value="1913">1913</option><option value="1914">1914</option><option value="1915">1915</option><option value="1916">1916</option><option value="1917">1917</option><option value="1918">1918</option><option value="1919">1919</option><option value="1920">1920</option><option value="1921">1921</option><option value="1922">1922</option><option value="1923">1923</option><option value="1924">1924</option><option value="1925">1925</option><option value="1926">1926</option><option value="1927">1927</option><option value="1928">1928</option><option value="1929">1929</option><option value="1930">1930</option><option value="1931">1931</option><option value="1932">1932</option><option value="1933">1933</option><option value="1934">1934</option><option value="1935">1935</option><option value="1936">1936</option><option value="1937">1937</option><option value="1938">1938</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option><option value="1946">1946</option><option value="1947">1947</option><option value="1948">1948</option><option value="1949">1949</option><option value="1950">1950</option><option value="1951">1951</option><option value="1952">1952</option><option value="1953">1953</option><option value="1954">1954</option><option value="1955">1955</option><option value="1956">1956</option><option value="1957">1957</option><option value="1958">1958</option><option value="1959">1959</option><option value="1960">1960</option><option value="1961">1961</option><option value="1962">1962</option><option value="1963">1963</option><option value="1964">1964</option><option value="1965">1965</option><option value="1966">1966</option><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option><option value="2036">2036</option><option value="2037">2037</option><option value="2038">2038</option><option value="2039">2039</option><option value="2040">2040</option></select></span><span class="monthSelect-wrapper"><select class="monthSelect"></select></span><button>Today</button><table><thead></thead><tbody></tbody></table></date-input-polyfill><script>(function(){var w=window;w.$components=(w.$components||[]).concat({"r":"M","w":[["s0-0-0-3-9",0,{"to":"/resources","l":"resources"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/resources"}}],["s0-0-0-3-8",0,{"to":"/readings","l":"readings"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/readings"}}],["s0-0-0-3-7",0,{"to":"/staff","l":"staff"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/staff"}}],["s0-0-0-3-6",0,{"to":"/policies","l":"policies"},{"f":1,"s":{"active":false},"w":{"target":"/sp20/policies"}}],["s0-0-0-3-5",0,{"to":"/","l":"cs184/284a"},{"f":1,"s":{"active":false},"w":{"target":"/sp20"}}]],"t":["/cal-184-website$3.2.0/client/components/comp-nav-link/index.marko"]})||w.$components})()</script></body></html>
